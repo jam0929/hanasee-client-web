@@ -1,0 +1,87 @@
+@charset "utf-8";
+
+.navbar {
+  position: fixed; top: 0; width: 100%;  
+  border: none; border-radius:0; z-index: 1001;
+  padding: .3em; font-size: 3em;
+  background-color: #c62f2f; color: #FFF;
+}
+.navbar > ul {
+  font-size: 1em; line-height: 0;
+}
+.navbar > ul > li {
+  padding:0; margin: 0;
+}
+.navbar > ul > li.logo {
+  width: 1em; height: 1em;
+  margin:0;
+  background: url('/images/logo_circle_56x56_white.png') no-repeat center center;
+  -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;
+}
+.navbar > ul > li.text {
+  vertical-align: text-top;
+  margin-top: .6em;
+  padding-left: .4em;
+  font-size: .7em;
+}
+.navbar > ul > li.text.detail {
+  margin-top: .76em;
+}
+.navbar > ul > li.loading {
+  font-size: .7em;
+  vertical-align: text-top;
+  margin-top: .1em;
+  padding-left: 0;
+}
+.navbar > ul > li.pull-right {
+  padding-left: .4em;
+  font-size: .9em;
+  margin-top: .05em;
+}
+
+/*
+.navbar > ul.list-inline {
+  font-size: .81em;
+}
+.navbar > ul.list-inline > li {
+  padding: 0;
+}
+*/
+
+/* subnav */
+ul.dropdown-menu {
+  right: 0; left: auto;
+}
+ul.subnav {
+  font-size: 1.2em; margin: 0; padding: 0; list-style-type: none; width: 100%; color: #c62f2f;
+}
+ul.subnav > li {
+  padding: .8em .2em; display: block; width: 33.3%; float: left; text-align: center; border-bottom: .1em solid #d1d1d1;
+}
+ul.subnav > li > a, ul.subnav > li > a:hover, ul.subnav > li > a:visited, ul.subnav > li > a:active {
+  color: #c62f2f; text-decoration: none;
+}
+ul.subnav > li.active {
+  display: block; padding-bottom: .7em; border-bottom: .2em solid #c62f2f;
+}
+
+
+/*
+@media (max-width:479px) { 
+  .navbar { font-size: 2em; padding: .3em; }
+}
+*/
+/*
+@media (min-width:480px) and (max-width:639px) { 
+  .navbar { font-size: 3.7em; padding: .3em; }
+}
+@media (min-width:640px) and (max-width:767px) { 
+  .navbar { font-size: 4.7em; padding: .3em; }
+}
+@media (min-width:768px) and (max-width:959px) { 
+  .navbar { font-size: 5.7em; padding: .3em; }
+}
+@media (min-width:960px) { 
+  .navbar { font-size: 2.7em; padding: .3em; }
+}
+*/

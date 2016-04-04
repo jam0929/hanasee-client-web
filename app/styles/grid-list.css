@@ -1,0 +1,150 @@
+h4.grid-list-title {
+  margin-bottom: 0px;
+  border-bottom: 1px solid #d1d1d1;
+  font-size: 1.4em;
+  font-weight: bold;
+  padding: .5em;
+}
+
+ul.grid-list {
+  margin-bottom: 1em;
+}
+ul.grid-list.list-inline {
+  padding: 0 1.5em;
+}
+ul.grid-list.list-inline > li > img {
+  max-width: 100%;
+  max-height: 7.7em;
+  width: 13vw; height: 13vw;
+}
+ul.grid-list.list-inline.todays-pictures > li > img {
+  max-width: 100%;
+  max-height: 11.84em;
+  width: 23vw; height: 23vw;
+}
+
+@media (min-width:480px) { }
+@media (min-width:640px) { }
+@media (min-width:768px) { }
+@media (min-width:960px) { }
+
+
+ul.grid-list > a, ul.grid-list > a:active, ul.grid-list > a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul.grid-list > li,
+ul.grid-list > a > li {
+  border-bottom: 1px solid #d1d1d1;
+  font-size: 1.7em;
+  padding: .3em;
+  text-overflow:ellipsis; white-space: nowrap; overflow: hidden;
+}
+ul.grid-list > li > img,
+ul.grid-list > a > li > img {
+  max-width: 100%;
+}
+
+ul.grid-list.list-inline > li,
+ul.grid-list.list-inline > a > li {
+  border-bottom: none;
+}
+
+ul.grid-list > li > span.pull-right,
+ul.grid-list > a > li > span.pull-right {
+  color: #c62f2f;
+  /*line-height: .7;*/
+  padding-left: 1.5em;
+}
+ul.grid-list > li > span.pull-right > img,
+ul.grid-list > a > li > span.pull-right > img {
+  height: 1.69em;
+  width: 1.69em;
+}
+ul.grid-list > li > span.pull-right > i.fa,
+ul.grid-list > a > li > span.pull-right > i.fa {
+  color: #d1d1d1;
+}
+ul.grid-list > li.active > span.pull-right > i.fa,
+ul.grid-list > a > li.active > span.pull-right > i.fa {
+  color: #c62f2f;
+}
+ul.grid-list > li > span.pull-right > div.has-switch,
+ul.grid-list > a > li > span.pull-right > div.has-switch {
+  font-size: 2em;
+  min-width: 1.2em;
+  line-height: .6;
+  
+  position: relative;
+  overflow:hidden;
+  
+  border-radius: .4em;
+  border: .07em solid;
+  
+  -webkit-transition: all ease-in-out .1s;
+  -moz-transition: all ease-in-out .1s;
+  -ms-transition: all ease-in-out .1s;
+  -o-transition: all ease-in-out .1s;
+  transition: all ease-in-out .1s;
+}
+ul.grid-list > li > span.pull-right.switch-off > div.has-switch,
+ul.grid-list > a > li > span.pull-right.switch-off > div.has-switch {
+    border-color: #d1d1d1;
+    background-color: #d1d1d1;
+    
+}
+ul.grid-list > li > span.pull-right.switch-on > div.has-switch,
+ul.grid-list > a> li > span.pull-right.switch-on > div.has-switch {
+    border-color: #c62f2f;
+    background-color: #c62f2f;
+}
+ul.grid-list > li > span.pull-right > div.has-switch > div.switch-container,
+ul.grid-list > a > li > span.pull-right > div.has-switch > div.switch-container {
+  width: 100%;
+  display: inline-block;
+  position: relative;
+  top: .01em;
+  
+  -webkit-transition: all ease-in-out .1s;
+  -moz-transition: all ease-in-out .1s;
+  -ms-transition: all ease-in-out .1s;
+  -o-transition: all ease-in-out .1s;
+  transition: all ease-in-out .1s;
+}
+ul.grid-list > li > span.pull-right.switch-off > div.has-switch > div.switch-container,
+ul.grid-list > a > li > span.pull-right.switch-off > div.has-switch > div.switch-container  {
+  left: -45%;
+}
+ul.grid-list > li > span.pull-right.switch-on > div.has-switch > div.switch-container,
+ul.grid-list > a > li > span.pull-right.switch-on > div.has-switch > div.switch-container {
+  left: 0;
+}
+ul.grid-list > li > span.pull-right > div.has-switch > div.switch-container > div.switch-left,
+ul.grid-list > li > span.pull-right > div.has-switch > div.switch-container > div.switch-right,
+ul.grid-list > a > li > span.pull-right > div.has-switch > div.switch-container > div.switch-left,
+ul.grid-list > a > li > span.pull-right > div.has-switch > div.switch-container > div.switch-right {
+  margin:0; padding:0;
+  width: 45%;
+  position: relative;
+  float: left;
+}
+ul.grid-list > li > span.pull-right > div.has-switch > div.switch-container > div.switch-right,
+ul.grid-list > a > li > span.pull-right > div.has-switch > div.switch-container > div.switch-right {
+  width: 55%;
+  border-radius: 50%;
+  background-color: #FFF;
+}
+
+ul.grid-list > li > input,
+ul.grid-list > a > li > input {
+  width: 100%;
+  border: none;
+}
+    
+/*
+ul.grid-list > li > span.pull-right > i.fa-angle-right {
+  margin-top: -.1em;
+  font-size: 1.8em;
+}
+*/

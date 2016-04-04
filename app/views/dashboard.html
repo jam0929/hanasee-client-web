@@ -1,0 +1,311 @@
+<div class="setting-container" ng-class="{on: optionDetail.isOpen}">
+  <div class="first">
+    <h4 class="grid-list-title" ng-if="dashboardData.uid===userInfo.uid">
+      {{'DASHBOARD_PAGE.group.myProfile' | translate}}
+    </h4>
+    <h4 class="grid-list-title" ng-if="dashboardData.uid!==userInfo.uid">
+      {{'DASHBOARD_PAGE.group.someonesProfile' | translate : '{nickname : "'+dashboardData.nickname+'"}'}}
+    </h4>
+    <ul class="list-unstyled grid-list">
+      <li>
+        <input
+          ng-init="picture={}"
+          id="picture_file"
+          class="hide"
+          type="file"
+          accept="image/*"
+          image="picture"
+          upload-limit="1"
+          change-callback="profileSave"
+        />
+        <span class="pull-right" ng-if="dashboardData.uid===userInfo.uid">
+          <img ng-if="!dashboardData.picture" class="cursor-pointer media-object img-circle" 
+            src="http://placehold.it/45x45/d1d1d1/&text=N/A"
+            onclick="$('#picture_file').trigger('click');" />
+          <img ng-if="dashboardData.picture" class="cursor-pointer media-object img-circle" ng-src="{{dashboardData.picture}}"
+            onclick="$('#picture_file').trigger('click');" />
+        </span>
+        <span class="pull-right" ng-if="dashboardData.uid!==userInfo.uid">
+          <img ng-if="!dashboardData.picture" class="media-object img-circle" src="http://placehold.it/45x45"/>
+          <img ng-if="dashboardData.picture" class="media-object img-circle" ng-src="{{dashboardData.picture}}"/>
+        </span>
+        {{'DASHBOARD_PAGE.label.picture' | translate}}
+      </li>
+      
+      <li ng-class="{'cursor-pointer': dashboardData.uid===userInfo.uid}" 
+        ng-click="optionDetail.open('nickname', false, dashboardData.uid);">
+        <span class="pull-right">
+          {{dashboardData.nickname}}
+          <i class="fa fa-angle-right"></i>
+        </span>
+        {{'DASHBOARD_PAGE.label.nickname' | translate}}
+      </li>
+      
+      <li ng-if="dashboardData.uid===userInfo.uid">
+        <span class="pull-right disabled">
+          {{dashboardData.email}}
+          <i class="fa fa-angle-right"></i>
+        </span>
+        {{'DASHBOARD_PAGE.label.email' | translate}}
+      </li>
+      
+      <a ng-if="dashboardData.uid===userInfo.uid"
+        ng-href="{{appInfo.api.baseUrl}}/dialog/reset_password?returnTo={{appInfo.webUrl}}{{appInfo.currentPath}}">
+        <li>
+            <span class="cursor-pointer pull-right">
+              {{'COMMON.label.change' | translate}}
+              <i class="fa fa-angle-right"></i>
+            </span>
+            {{'DASHBOARD_PAGE.label.password' | translate}}
+        </li>
+      </a>
+      
+      <li ng-if="dashboardData.uid===userInfo.uid"
+        ng-class="{'cursor-pointer': dashboardData.uid===userInfo.uid}"
+        ng-click="optionDetail.open('country');">
+        <span class="pull-right">
+          {{country.supportList[dashboardData.hanasee.country].name}}
+          <i class="fa fa-angle-right"></i>
+        </span>
+          
+        {{'DASHBOARD_PAGE.label.country' | translate}}
+      </li>
+      <li  ng-class="{'cursor-pointer': dashboardData.uid===userInfo.uid}" 
+        ng-click="optionDetail.open('language', false, dashboardData.uid);">
+        <span class="pull-right">
+          {{language.supportList[dashboardData.language].name}}
+          <i class="fa fa-angle-right"></i>
+        </span>
+          
+        {{'DASHBOARD_PAGE.label.language' | translate}}
+      </li>
+    </ul>
+    
+    
+<!-- adcode -->
+<div class="text-center" ng-include="'views/ad.html'"></div>
+<!-- /adcode -->
+
+    
+    <h4 class="grid-list-title" ng-if="dashboardData.uid===userInfo.uid">
+      {{'DASHBOARD_PAGE.group.myHanasees' | translate}}
+    </h4>
+    <h4 class="grid-list-title" ng-if="dashboardData.uid!==userInfo.uid">
+      {{'DASHBOARD_PAGE.group.someonesHanasees' | translate : '{nickname : "'+dashboardData.nickname+'"}'}}
+    </h4>
+    <div class="columns">
+      <div ng-if="hanasee.title" scrollevent="scrollEventLoad()" 
+        ng-repeat="hanasee in dashboardData.writeList" id="{{hanasee.Author.uid}}_{{hanasee.sid}}" 
+        class="media item cursor-pointer {{hanasee.status}}" 
+        ng-click="move('/hanasee/'+hanasee.Author.uid+'/'+hanasee.sid)">
+        <div class="pull-left text-center">
+          <img ng-if="!hanasee.Author.picture" src="http://placehold.it/64x64/d1d1d1/&text=N/A" class="media-object img-circle" />
+          <img ng-if="hanasee.Author.picture" ng-src="{{hanasee.Author.picture}}" class="media-object img-circle" />
+          <small ng-switch on="hanasee.status">
+            <span ng-switch-when="ready" class="label label-primary">{{'HANASEES_PAGE.status.ready' | translate}}</span>
+            <span ng-switch-when="paused" class="label label-default">{{'HANASEES_PAGE.status.paused' | translate}}</span>
+            <span ng-switch-when="onair" class="label label-danger">{{'HANASEES_PAGE.status.onair' | translate}}</span>
+            <span ng-switch-when="afk" class="label label-info">{{'HANASEES_PAGE.status.afk' | translate}}</span>
+            <span ng-switch-when="completed" class="label label-success">{{'HANASEES_PAGE.status.completed' | translate}}</span>
+          </small>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">
+            {{hanasee.title}}
+          </h4>
+          <p>
+            {{hanasee.description && hanasee.description !== 'undefined' ? hanasee.description : hanasee.title}}
+          </p>
+          <ul class="list-inline">
+            <li>{{hanasee.nickname}}</li>
+            <li ng-if="hanasees.status!=='completed'">{{hanasee.updated | timeago}}</li>
+            <li ng-if="hanasees.status==='completed'">{{hanasee.updated | date:'yyyy-MM-dd'}}</li>
+            <li ng-switch on="hanasees.order">
+                <span ng-switch-when="new" ng-if="hanasees.status!=='completed'" class="right">
+                  {{'HANASEE.label.viewCount'|translate:'{cnt:"'+(hanasee.viewCount | number:0)+'"}'}}
+                </span>
+                <span ng-switch-when="new" ng-if="hanasees.status==='completed'" class="right">
+                  {{'HANASEE.label.totalViewCount'|translate:'{cnt:"'+(hanasee.totalViewCount | number:0)+'"}'}}
+                </span>
+                <span ng-switch-when="best" class="right">
+                  {{'HANASEE.label.totalViewCount'|translate:'{cnt:"'+(hanasee.totalViewCount | number:0)+'"}'}}
+                </span>
+                <span ng-switch-when="trends" class="right">
+                  {{'HANASEE.label.viewCount'|translate:'{cnt:"'+(hanasee.viewCount | number:0)+'"}'}}
+                </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <hr />
+    
+    <ul class="cursor-pointer list-unstyled grid-list" 
+      ng-if="dashboardData.writeMoreFlag" ng-click="move('/hanasees/-/author/'+dashboardData.uid);">
+      <li>
+        <span class="pull-right">
+          <i class="fa fa-angle-right"></i>
+        </span>
+        {{'COMMON.label.more' | translate}}
+      </li>
+    </ul>
+    <ul class="list-unstyled grid-list disabled" 
+      ng-if="!dashboardData.writeMoreFlag">
+      <li>
+        <span class="pull-right">
+          <i class="fa fa-angle-right"></i>
+        </span>
+        {{'COMMON.label.more' | translate}}
+      </li>
+    </ul>
+    
+    <h4 class="grid-list-title" ng-if="dashboardData.uid===userInfo.uid">
+      {{'DASHBOARD_PAGE.group.myBookmarks' | translate}}
+    </h4>
+    <h4 class="grid-list-title" ng-if="dashboardData.uid!==userInfo.uid">
+      {{'DASHBOARD_PAGE.group.someonesBookmarks' | translate : '{nickname : "'+dashboardData.nickname+'"}'}}
+    </h4>
+    <div class="columns">
+      <div ng-if="hanasee.title" scrollevent="scrollEventLoad()" 
+        ng-repeat="hanasee in dashboardData.markedList" id="{{hanasee.Author.uid}}_{{hanasee.sid}}" 
+        class="media item cursor-pointer {{hanasee.status}}" >
+        <div class="pull-left text-center cursor-pointer"
+          ng-click="move('/dashboard/'+hanasee.Author.uid)">
+          <img ng-if="!hanasee.Author.picture" src="http://placehold.it/64x64/d1d1d1/&text=N/A" class="media-object img-circle" />
+          <img ng-if="hanasee.Author.picture" ng-src="{{hanasee.Author.picture}}" class="media-object img-circle" />
+          <small ng-switch on="hanasee.status">
+            <span ng-switch-when="ready" class="label label-primary">{{'HANASEES_PAGE.status.ready' | translate}}</span>
+            <span ng-switch-when="paused" class="label label-default">{{'HANASEES_PAGE.status.paused' | translate}}</span>
+            <span ng-switch-when="onair" class="label label-danger">{{'HANASEES_PAGE.status.onair' | translate}}</span>
+            <span ng-switch-when="afk" class="label label-info">{{'HANASEES_PAGE.status.afk' | translate}}</span>
+            <span ng-switch-when="completed" class="label label-success">{{'HANASEES_PAGE.status.completed' | translate}}</span>
+          </small>
+        </div>
+        <div class="media-body cursor-pointer"
+          ng-click="move('/hanasee/'+hanasee.Author.uid+'/'+hanasee.sid)">
+          <h4 class="media-heading">
+            {{hanasee.title}}
+          </h4>
+          <p>
+            {{hanasee.description && hanasee.description !== 'undefined' ? hanasee.description : hanasee.title}}
+          </p>
+          <ul class="list-inline">
+            <li>{{hanasee.nickname}}</li>
+            <li ng-if="hanasees.status!=='completed'">{{hanasee.updated | timeago}}</li>
+            <li ng-if="hanasees.status==='completed'">{{hanasee.updated | date:'yyyy-MM-dd'}}</li>
+            <li ng-switch on="hanasees.order">
+              <span ng-switch-when="new" ng-if="hanasees.status!=='completed'" class="right">
+                {{'HANASEE.label.viewCount'|translate:'{cnt:"'+(hanasee.viewCount | number:0)+'"}'}}
+              </span>
+              <span ng-switch-when="new" ng-if="hanasees.status==='completed'" class="right">
+                {{'HANASEE.label.totalViewCount'|translate:'{cnt:"'+(hanasee.totalViewCount | number:0)+'"}'}}
+              </span>
+              <span ng-switch-when="best" class="right">
+                {{'HANASEE.label.totalViewCount'|translate:'{cnt:"'+(hanasee.totalViewCount | number:0)+'"}'}}
+              </span>
+              <span ng-switch-when="trends" class="right">
+                {{'HANASEE.label.viewCount'|translate:'{cnt:"'+(hanasee.viewCount | number:0)+'"}'}}
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <hr />
+    
+    <ul class="cursor-pointer list-unstyled grid-list" 
+      ng-if="dashboardData.markedMoreFlag" ng-click="move('/hanasees/-/marked/'+dashboardData.uid);">
+      <li>
+        <span class="pull-right">
+          <i class="fa fa-angle-right"></i>
+        </span>
+        {{'COMMON.label.more' | translate}}
+      </li>
+    </ul>
+    
+    <ul class="list-unstyled grid-list disabled" 
+      ng-if="!dashboardData.markedMoreFlag">
+      <li>
+        <span class="pull-right">
+          <i class="fa fa-angle-right"></i>
+        </span>
+        {{'COMMON.label.more' | translate}}
+      </li>
+    </ul>
+    
+    <h4 class="grid-list-title" ng-if="dashboardData.uid===userInfo.uid">
+      {{'DASHBOARD_PAGE.label.disableAccount' | translate}}
+    </h4>
+    <ul class="list-unstyled grid-list" ng-if="dashboardData.uid===userInfo.uid">
+    
+      <a ng-if="dashboardData.uid===userInfo.uid"
+        ng-href="{{appInfo.api.baseUrl}}/dialog/deactivate?returnTo={{appInfo.webUrl}}{{appInfo.currentPath}}">
+        <li>
+          <span class="pull-right">
+            <i class="fa fa-angle-right"></i>
+          </span>
+          {{'DASHBOARD_PAGE.label.disableAccount' | translate}}
+        </li>
+      </a>
+    </ul>
+  </div>
+  
+  <!-- second nickname -->
+  <div class="second" ng-if="optionDetail.target === 'nickname'">
+    <h4 class="cursor-pointer grid-list-title" ng-click="optionDetail.close();">
+      {{'DASHBOARD_PAGE.label.nickname' | translate}}
+    </h4>
+    <ul class="list-unstyled grid-list">
+      <li>
+        <input type="text" class="cursor-pointer" ng-model="dashboardData.nickname" focus="500"/>
+      </li>
+    </ul>
+  </div>
+  <!-- /second nickname -->
+  
+  <!-- second country -->
+  <div class="second" ng-if="optionDetail.target === 'country'">
+    <h4 class="cursor-pointer grid-list-title" ng-click="optionDetail.close();">
+      {{'DASHBOARD_PAGE.label.country' | translate}}
+    </h4>
+    
+    <ul class="list-unstyled grid-list">
+      <li ng-repeat="key in notSorted(country.supportList)"
+        class="cursor-pointer" ng-class="{active:key===dashboardData.hanasee.country}"
+        ng-click="dashboardData.hanasee.country=key;">
+        <span class="pull-right">
+          <i class="fa fa-check"></i>
+        </span>
+        {{country.supportList[key].name}}
+      </li>
+    </ul>
+  </div>
+  <!-- /second country -->
+  
+  <!-- second language -->
+  <div class="second" ng-if="optionDetail.target === 'language'">
+  <h4 class="cursor-pointer grid-list-title" ng-click="optionDetail.close();">
+      {{'DASHBOARD_PAGE.label.language' | translate}}
+    </h4>
+    <ul class="list-unstyled grid-list">
+      <li ng-repeat="key in notSorted(language.supportList)"
+        class="cursor-pointer" ng-class="{active:key===dashboardData.language}"
+        ng-click="dashboardData.language=key;">
+        <span class="pull-right">
+          <i class="fa fa-check"></i>
+        </span>
+        {{language.supportList[key].name}}
+      </li>
+    </ul>
+  </div>
+  <!-- second language -->
+</div>
+
+<style>
+  ul.grid-list > li > span.pull-right > img {
+    width: 1.7em;
+    margin-top: -.1em;
+  }
+</style>

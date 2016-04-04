@@ -1,0 +1,58 @@
+form.write-form > .form-group {
+  padding: .2em .7em;
+  font-size: 2em;
+}
+
+form.write-form > .form-group > label > small {
+  font-size: .5em;
+}
+
+form.write-form > .form-group > input,
+form.write-form > .form-group > textarea,
+form.write-form > .form-group > button {
+  background-color: #d1d1d1;
+  color: white;
+  font-size: .75em;
+  padding: .6em;
+  border-radius: .7em;
+}
+form.write-form > .form-group > input {
+  padding: 1.4em .6em;
+}
+form.write-form > .form-group > input,
+form.write-form > .form-group > textarea {
+  color: black;
+}
+form.write-form > .form-group > button.submit {
+  background-color: #c62f2f;
+}
+
+form.write-form > ul.tags {
+  padding: 0 1.8em;
+  margin-top: -.3em;
+}
+
+form.write-form > .form-group > .previews {
+  padding: .2em;
+}
+
+form.write-form > .form-group > .previews > div {
+  padding-left: .3em;
+  padding-right: .3em;
+  padding-bottom: .6em;
+}
+
+form.write-form > .form-group > .previews > div > div {
+  width: 100%; height: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;
+  border-radius: .8em;
+  height: 5.3em;
+  padding: 1.4em 0;
+}
+
+form.write-form > .form-group > .previews > div > div > i.fa-times {
+  color: #d1d1d1;
+  -webkit-opacity: .8; -moz-opacity: .8; -o-opacity: .8; opacity: .8;
+}

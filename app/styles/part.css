@@ -1,0 +1,19 @@
+.part {  }
+
+.part > h3 { padding: 0 1em; margin-bottom:1em; }
+.part > h3 > img { width: 100%; }
+
+.part > .media {
+  padding: 0 2em;
+}
+.part p.author { color: #d1d1d1; margin-bottom: .3em; }
+.part p.title { color: #d1d1d1; margin-bottom:0; font-style: italic; }
+
+.part > .part-action {
+  font-size:1.5em;
+  color: #c62f2f;
+  padding: 1em;
+}
+.part i.fa-refresh {
+  padding: .2em;
+}

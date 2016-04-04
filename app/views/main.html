@@ -1,0 +1,145 @@
+<div class="main ng-cloak">
+  <!-- 오늘의 하나시 -->
+  <h4 class="grid-list-title" ng-click="move('/hanasees/-/today');">
+    {{ 'MAIN_PAGE.label.todaysHanasees' | translate }}
+    <small class="pull-right cursor-pointer">{{ 'COMMON.label.more' | translate }}</small>
+  </h4>
+  <ul class="list-unstyled grid-list">
+    <li class="media" ng-repeat="item in todayHanasees.data">
+      <div class="pull-left text-center height-auto cursor-pointer" ng-click="move('/hanasees/'+item.channel);">
+        <span class="badge">{{'CHANNEL.'+item.channel | translate}}</span>
+      </div>
+      <div class="media-body cursor-pointer"
+        ng-click="move('/hanasee/'+item.Author.uid+'/'+item.sid);">
+        {{item.title}}
+      </div>
+    </li>
+  </ul>
+  
+  <!-- /오늘의 하나시 -->
+
+  
+  <!-- 레전드 짤방 -->
+  <h4 class="grid-list-title no-border-bottom">
+    {{ 'MAIN_PAGE.label.todaysPictures' | translate }}
+  </h4>
+  
+  <ul class="list-inline list-unstyled grid-list row todays-pictures">
+    <li class="col-xs-3 text-center cursor-pointer" ng-repeat="item in jjalbangs.data"
+      ng-click="move('/hanasee/'+item.Hanasee.Author.uid+'/'+item.Hanasee.sid+'/'+item.tid);" 
+      ng-if="item.thumbnails[0]">
+      <img ng-src="{{item.thumbnails[0]}}" class="img-rounded">
+    </li>
+  </ul>
+  <!-- /레전드 짤방 -->
+  
+  
+<!-- adcode -->
+<div class="text-center" ng-include="'views/ad.html'"></div>
+<!-- /adcode -->
+
+  <!-- 생방송 -->
+  <h4 class="grid-list-title" ng-click="moveHanasees();">
+    {{ 'MAIN_PAGE.label.live' | translate }}
+    <small class="pull-right cursor-pointer">{{ 'COMMON.label.more' | translate }}</small>
+  </h4>
+  <ul class="list-unstyled grid-list">
+    <li class="media" ng-repeat="item in onairHanasees.data">
+      <div class="pull-left text-center height-auto cursor-pointer" ng-click="move('/hanasees/'+item.channel);">
+        <span class="badge">{{'CHANNEL.'+item.channel | translate}}</span>
+      </div>
+      <div class="media-body cursor-pointer"
+        ng-click="move('/hanasee/'+item.Author.uid+'/'+item.sid);">
+        {{item.title}}
+      </div>
+    </li>
+  </ul>
+  <!-- /생방송 -->
+  
+  
+  <!-- 베스트 작가 -->
+  <h4 class="grid-list-title no-border-bottom">
+    {{ 'MAIN_PAGE.label.bestAuthor' | translate }}
+  </h4>
+
+  <ul class="list-inline list-unstyled grid-list row best-author">
+    <li class="col-xs-2 text-center cursor-pointer" ng-repeat="item in bestUsers.data"
+      ng-click="move('/dashboard/'+item.Author.uid);">
+      <img ng-if="!item.Author.picture" src="http://placehold.it/45x45/d1d1d1/&text=N/A" class="img-circle">
+      <img ng-if="item.Author.picture" ng-src="{{item.Author.picture}}" class="img-circle">
+      <p><small>{{item.Author.nickname}}</small></p>
+    </li>
+  </ul>
+  <!-- /베스트 작가 -->
+  
+  
+  <!-- MD추천 --
+  <h4 class="grid-list-title">
+    MD추천 <span class="text-red">[블라블라]</span>
+    <small class="pull-right">더보기</small>
+  </h4>
+  <ul class="list-unstyled grid-list">
+    <li class="row">
+      <div class="col-xs-2 text-center">
+        <span class="badge">사랑/연애</span>
+      </div>
+      <div class="col-xs-10">
+        이거슨 타이틀입니다. 하나둘 하나둘
+      </div>
+    </li>
+    <li class="row">
+      <div class="col-xs-2 text-center">
+        <span class="badge">연애</span>
+      </div>
+      <div class="col-xs-10">
+        이거슨 타이틀입니다. 하나둘 하나둘
+      </div>
+    </li>
+    <li class="row">
+      <div class="col-xs-2 text-center">
+        <span class="badge">연애</span>
+      </div>
+      <div class="col-xs-10">
+        이거슨 타이틀입니다. 하나둘 하나둘
+      </div>
+    </li>
+    <li class="row">
+      <div class="col-xs-2 text-center">
+        <span class="badge">연애</span>
+      </div>
+      <div class="col-xs-10">
+        이거슨 타이틀입니다. 하나둘 하나둘
+      </div>
+    </li>
+  </ul>
+  <!-- /MD추천 -->
+  
+  
+  <!-- 대박 멘트 -->
+  <h4 class="grid-list-title">
+    {{ 'MAIN_PAGE.label.todaysParts' | translate }}
+  </h4>
+  <ul class="list-unstyled grid-list">
+    <li class="media" ng-repeat="item in bestParts.data">
+      <div class="pull-left cursor-pointer"
+      ng-click="move('/dashboard/'+item.Hanasee.Author.uid);">
+        <img ng-if="!item.Hanasee.Author.picture" src="http://placehold.it/64x64/d1d1d1/&text=N/A" class="media-object img-circle" />
+        <img ng-if="item.Hanasee.Author.picture" ng-src="{{item.Hanasee.Author.picture}}" class="media-object img-circle" />
+      </div>
+      <div class="media-body cursor-pointer"
+      ng-click="move('/part/'+item.Hanasee.Author.uid+'/'+item.Hanasee.sid+'/'+item.tid);">
+        <i class="fa fa-quote-left disabled"></i> {{item.content}} <i class="fa fa-quote-right disabled"></i>
+        <ul class="list-unstyled list-inline text-red">
+          <li><small>{{item.Hanasee.Author.nickname}}</small></li>
+          <li class="pull-right text-italic"><small>{{item.Hanasee.title}}</small></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+  <!-- /MD추천 -->
+</div>
+
+
+<!-- adcode -->
+<div class="text-center" ng-include="'views/ad.html'"></div>
+<!-- /adcode -->

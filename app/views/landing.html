@@ -1,0 +1,145 @@
+﻿<div class="landing" ng-class="'a'+landingData.backgroundNum" 
+  ng-swipe-left="landingData.movePage('next')" 
+  ng-swipe-right="landingData.movePage('prev')">
+  <ul class="list-inline text-center" >
+    <li class="cursor-pointer" ng-class="{active:$index===landingData.pageNum}"
+      ng-repeat="i in landingData.getRange() track by $index" ng-click="landingData.pageNum=$index">
+      <i class="fa fa-circle"></i>
+    </li>
+  </ul>
+  
+  <div class="container" ng-class="'page-'+landingData.pageNum">
+    <div class="first">
+      <h1 class="logo text-hide"></h1>
+      <p class="title" ng-bind-html="'LANDING_PAGE.label.first.title' | translate"></p>
+      <p class="desc" ng-bind-html="'LANDING_PAGE.label.first.desc' | translate"></p>
+      <span class="cursor-pointer" ng-click="moveSign('signin', $event)">
+        {{ 'LANDING_PAGE.label.signin' | translate }}
+      </span>
+    </div>
+    <div class="second">
+      <i class="fa fa-pencil"></i>
+      <p class="title" ng-bind-html="'LANDING_PAGE.label.second.title' | translate"></p>
+      <p class="desc" ng-bind-html="'LANDING_PAGE.label.second.desc' | translate"></p>
+    </div>
+    <div class="third">
+      <i class="fa fa-comments-o"></i>
+      <p class="title" ng-bind-html="'LANDING_PAGE.label.third.title' | translate"></p>
+      <p class="desc" ng-bind-html="'LANDING_PAGE.label.third.desc' | translate"></p>
+    </div>
+    <div class="fourth">
+      <i class="fa fa-users"></i>
+      <p class="title" ng-bind-html="'LANDING_PAGE.label.fourth.title' | translate"></p>
+      <p class="desc" ng-bind-html="'LANDING_PAGE.label.fourth.desc' | translate"></p>
+    </div>
+    <div class="fivth">
+      <i class="fa fa-check-circle"></i>
+      <p class="title" ng-bind-html="'LANDING_PAGE.label.fivth.title' | translate"></p>
+      <p class="desc" ng-bind-html="'LANDING_PAGE.label.fivth.desc' | translate"></p>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <hr />
+    <div class="pull-left cursor-pointer" ng-class="{
+        'pull-left':landingData.lastPageNum!==landingData.pageNum,
+        'pull-right':landingData.lastPageNum===landingData.pageNum
+      }"
+      ng-click="moveSign('signin', $event)">
+      {{'LANDING_PAGE.label.signup' | translate}}
+    </div>
+    <div class="pull-right cursor-pointer" ng-class="{
+        'hide':landingData.lastPageNum===landingData.pageNum,
+        'pull-right':landingData.lastPageNum!==landingData.pageNum
+      }"
+      ng-click="landingData.movePage('next');">
+      {{'LANDING_PAGE.label.next' | translate}}
+    </div>
+  </div>
+  
+  <!--
+  <h1 class="logo text-hide">Hanasee</h1>
+  
+  <carousel interval="5000">
+    <slide>
+      <div class="carousel-caption">
+        <i class="fa fa-bullhorn"></i>
+        <h4>시작</h4>
+        <p>이야기의 시작을 친구들에게 알리세요</p>
+      </div>
+    </slide>
+    <slide>
+      <div class="carousel-caption">
+        <i class="fa fa-pencil-square-o"></i>
+        <h4>쓰기</h4>
+        <p>실시간으로 이야기를 쓰세요</p>
+      </div>
+    </slide>
+    <slide>
+      <div class="carousel-caption">
+        <i class="fa fa-users"></i>
+        <h4>관리</h4>
+        <p>독자들을 관리하세요</p>
+      </div>
+    </slide>
+    <slide>
+      <div class="carousel-caption">
+        <a ng-click="moveSign('signin', $event)" class="btn btn-warning btn-lg">
+          10초만에 가입하기
+        </a>
+        <h4>{{'LANDING_PAGE.label.start' | translate}}</h4>
+        <p>지금 바로 시작하세요</p>
+    </div>
+    </slide>
+    
+  </a>
+  </carousel>
+  <style>
+    .landing > .carousel {
+      width: 100%;
+      height: 17em;
+      /*background-color:rgba(255, 255, 255, 0.5)*/
+      display: block;
+      position: fixed;
+      bottom: 11em;
+    }
+    /*
+    .landing > .carousel > .carousel-indicators > li,
+    .landing > .carousel > .carousel-indicators > li.active {
+      width: 8px;
+      height: 8px;
+      border-radius: 4px;
+    }
+    */
+    .landing > .carousel > .carousel-inner {
+      height: 100%;
+    }
+    .landing > .carousel > .carousel-inner > .item {
+      border-bottom: none;
+      height: 100%;
+    }
+    .landing > .carousel > .carousel-inner > .item > .carousel-caption > i {
+      font-size: 6em;
+    }
+    .landing > .carousel > .carousel-inner > .item > .carousel-caption {
+      background-color: rgba(0,0,0,.4);
+      border-radius: 1em;
+      padding: 1.7em;
+      text-shadow: .1em .1em .1em rgba(0, 0, 0, .8);
+    }
+
+    .landing > .carousel > .carousel-control.left,
+    .landing > .carousel > .carousel-control.right {
+      background-image: none;
+    }
+  </style>
+  
+  <a ng-click="moveSign('signin', $event)" class="btn btn-primary btn-lg">
+    {{'LANDING_PAGE.label.start' | translate}}
+  </a>
+    
+  <copyright>
+    &copy; {{appInfo.establishmentYear}} {{appInfo.company}}
+  </copyright>
+  -->
+</div>

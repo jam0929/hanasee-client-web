@@ -1,0 +1,36 @@
+RewriteEngine on
+
+### If using a .htaccess file, uncomment the following line
+Options +FollowSymLinks
+
+<IfModule mod_deflate>
+  AddOutputFilterByType DEFLATE text/plain text/html text/xml
+  AddOutputFilterByType DEFLATE application/xhtml+xml application/xml application/rss+xml
+  AddOutputFilterByType DEFLATE text/css application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE audio/midi
+
+  DeflateCompressionLevel 9
+
+  BrowserMatch ^Mozilla/4 gzip-only-text/html   # Netscape 4.xx에는 HTML만 압축해서 보냄
+  BrowserMatch ^Mozilla/4\.0[678] no-gzip   # Netscape 4.06~4.08에는 압축해서 보내지 않음
+  BrowserMatch \bMSIE !no-gzip !gzip-only-text/html   # 자신을 Mozilla로 알리는 MSIE에는 그대로 압축해서 보냄
+</ifModule>
+
+### If the Host header is not correctly set
+###RequestHeader set Host "api.seo4ajax.com"
+
+### If a bot requests an escaped URL then proxify the request to SEO4Ajax
+#RewriteCond %{QUERY_STRING}  _escaped_fragment_=  [NC]
+#RewriteRule ^(.*)$ http://api.seo4ajax.com/5182cb9d14f8131af14a3e958dc9b1d9/$1 [P,QSA,L]
+RequestHeader set X-Prerender-Token "YwgkfgkkBk1LZacxsAEl"
+RewriteCond %{HTTP_USER_AGENT} Googlebot|bingbot|Googlebot-Mobile|Baiduspider|Yahoo|YahooSeeker|DoCoMo|Twitterbot|TweetmemeBot|Twikle|Netseer|Daumoa|SeznamBot|Ezooms|MSNBot|Exabot|MJ12bot|sogou\sspider|YandexBot|bitlybot|ia_archiver|proximic|spbot|ChangeDetection|NaverBot|MetaJobBot|magpie-crawler|Genieo\sWeb\sfilter|Qualidator.com\sBot|Woko|Vagabondo|360Spider|ExB\sLanguage\sCrawler|AddThis.com|aiHitBot|Spinn3r|BingPreview|GrapeshotCrawler|CareerBot|ZumBot|ShopWiki|bixocrawler|uMBot|sistrix|linkdexbot|AhrefsBot|archive.org_bot|SeoCheckBot|TurnitinBot|VoilaBot|SearchmetricsBot|Butterfly|Yahoo!|Plukkie|yacybot|trendictionbot|UASlinkChecker|Blekkobot|Wotbox|YioopBot|meanpathbot|TinEye|LuminateBot|FyberSpider|Infohelfer|linkdex.com|Curious\sGeorge|Fetch-Guess|ichiro|MojeekBot|SBSearch|WebThumbnail|socialbm_bot|SemrushBot|Vedma|alexa\ssite\saudit|SEOkicks-Robot|Browsershots|BLEXBot|woriobot|AMZNKAssocBot|Speedy|oBot|HostTracker|OpenWebSpider|WBSearchBot|FacebookExternalHit [NC,OR]
+RewriteCond %{QUERY_STRING} _escaped_fragment_=
+RewriteRule ^(.*)$ http://service.prerender.io/http://%{HTTP_HOST}/$2 [P,L]
+
+# Don't rewrite files or directories
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Rewrite everything else to index.html to allow html5 state links
+RewriteRule ^ index.html [L]

@@ -1,0 +1,615 @@
+<!-- managing tools -->
+<ul class="item-manage list-inline row text-center" 
+  ng-if="hanasee && (hanasee.Author.uid===userInfo.uid || userInfo.admin==='Y')">
+  <li class="col-xs-3 cursor-pointer" ng-click="noticeInfo.openFlag=!noticeInfo.openFlag;">
+    {{'HANASEE_PAGE.button.notification' | translate}}
+  </li>
+  <li class="col-xs-3 cursor-pointer" ng-click="move('/write/{{hanasee.Author.uid}}/{{hanasee.sid}}')">
+    {{'HANASEE_PAGE.button.update' | translate}}
+  </li>
+  <li class="dropdown col-xs-3 cursor-pointer dropdown-toggle"
+    ng-class="{alert: hanasee.status===onair, success: hanasee.status===completed}">
+      {{'HANASEES_PAGE.status.'+hanasee.status | translate}}
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li ng-class="{'hide':hanasee.status==='ready' || hanasee.status==='paused'}">
+        <a ng-click="hanaseeStatusChange('ready');">
+          {{'HANASEES_PAGE.status.ready' | translate}}
+        </a>
+      </li>
+      <li ng-class="{'hide':hanasee.status==='onair'}">
+        <a ng-click="hanaseeStatusChange('onair');">
+          {{'HANASEES_PAGE.status.onair' | translate}}
+        </a>
+      </li>
+      <li ng-class="{'hide':hanasee.status==='completed'}">
+        <a ng-click="hanaseeStatusChange('completed');">
+          {{'HANASEES_PAGE.status.completed' | translate}}
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li class="col-xs-3 cursor-pointer" ng-click="hanaseeDelete();">
+    {{'HANASEE_PAGE.button.delete' | translate}}
+  </li>
+</ul>
+
+<!-- noti form {{'HANASEE_PAGE.notification.label.write' | translate}} -->
+<form class="form" 
+  class="row hide" ng-class="{hide:!noticeInfo.openFlag}"
+  ng-submit="sendNotice()" ng-if="hanasee.Author.uid===userInfo.uid || userInfo.admin==='Y'">
+  
+      <div class="col-xs-9">
+        <input type="text"
+          class="form-control"
+          ng-model="noticeInfo.message"
+          placeholder="{{'HANASEE_PAGE.notification.placeholder.message' | translate}}"
+          required="true">
+      </div>
+      <div class="col-xs-3">
+        <button type="submit" class="form-control">
+          {{'HANASEE_PAGE.notification.button.submit' | translate}}
+        </button>
+      </div>
+      
+      <div class="col-xs-12 text-right">
+          {{'HANASEE_PAGE.notification.description.message' | translate}}
+      </div>
+</form>
+<!-- /noti form -->
+
+<hr ng-if="hanasee && (hanasee.Author.uid===userInfo.uid || userInfo.admin==='Y')" />
+
+<!-- /managing tools -->
+
+
+<!-- container -->
+<div class="item-header">
+  <!-- title -->
+  <h3>
+    <span class="cursor-pointer badge" ng-click="channel.set(hanasee.channel); moveHanasees();">
+      {{'CHANNEL.'+hanasee.channel | translate}}
+    </span>
+    <b>{{hanasee.title}}</b>
+    <small ng-switch on="hanasee.status">
+      <span ng-switch-when="ready" class="label label-primary">{{'HANASEES_PAGE.status.ready' | translate}}</span>
+      <span ng-switch-when="paused" class="label label-default">{{'HANASEES_PAGE.status.paused' | translate}}</span>
+      <span ng-switch-when="onair" class="label label-danger">{{'HANASEES_PAGE.status.onair' | translate}}</span>
+      <span ng-switch-when="afk" class="label label-info">{{'HANASEES_PAGE.status.afk' | translate}}</span>
+      <span ng-switch-when="completed" class="label label-success">{{'HANASEES_PAGE.status.completed' | translate}}</span>
+    </small>
+  </h3>
+  <!-- /title -->
+
+  <!-- info -->
+  <ul class="list-inline">
+    <li class="cursor-pointer" ng-click="move('/dashboard/'+hanasee.Author.uid);">{{hanasee.nickname}}</li>
+    <li>·</li>
+    <li ng-if="hanasees.status!=='completed'">{{hanasee.updated | timeago}}</li>
+    <li ng-if="hanasees.status==='completed'">{{hanasee.updated | date:'yyyy-MM-dd'}}</li>
+    <li>·</li>
+    <li>{{'HANASEE.label.viewCount' | translate:'{cnt: "'+(hanasee.viewCount | number:0)+'"}'}}</li>
+    <li class="label label-danger pull-right">{{hanasee.totalViewCount | number:0}}</li>
+  </ul>
+  <!-- /info -->
+</div>
+
+<hr />
+
+<!-- item-body -->
+<div class="item-body">
+
+  <!-- content -->
+  <p class="word-break" ng-bind-html="hanasee.description | linky:hanasee.linky"></p>
+  <!-- /content -->
+
+  <!-- thumbnail parts -->
+  <div class="row" ng-if="hanasee.images"
+    ng-click="slideModal()">
+    <div ng-repeat="(key, image) in hanasee.images" class="thumbnail cursor-pointer"
+     ng-class="
+      {
+        'col-xs-12':hanasee.images.length === 1,
+        'col-xs-6':hanasee.images.length === 2,
+        'col-xs-4':hanasee.images.length === 3,
+        'col-xs-3':hanasee.images.length >= 4
+      }
+    ">
+      <img ng-src="{{hanasee.thumbnails[key]}}" />
+    </div>
+  </div>
+  <!-- /thumbnail parts -->
+    
+  <!-- images modal -->
+  <script type="text/ng-template" id="slideModalContent.html">
+    <div class="modal-header">
+      {{'COMMON.label.thumbnails' | translate}}
+      <i class="fa fa-times fa-2x pull-right cursor-pointer" ng-click="modalClose();"></i>
+    </div>
+    <div class="modal-body">
+      <carousel interval="3000">
+        <slide ng-repeat="slide in slides">
+          <img ng-src="{{slide}}" style="margin:auto;">
+          <div class="carousel-caption">
+          </div>
+        </slide>
+      </carousel>
+    </div>
+  </script>
+  <!-- /images modal -->
+
+  <!-- tags -->
+  <ul class="tags list-inline">
+    <li class="cursor-pointer" 
+      ng-if="hanasee.tags && toString.call(hanasee.tags) !== '[object Array]'"
+      ng-click="hanasees.search = hanasee.tags; moveHanasees();">
+      {{hanasee.tags}}
+    </li>
+    <li class="cursor-pointer" 
+      ng-if="hanasee.tags && toString.call(hanasee.tags) === '[object Array]'"
+      ng-click="hanasees.search = tag; moveHanasees($event);"
+      ng-repeat="tag in hanasee.tags track by $index">
+      {{tag}}
+    </li>
+  </ul>
+  <!-- /tags -->
+  
+
+<!-- hanaseestatus
+<ul class="inline-list">
+  <li><i class="fa fa-stack-exchange"> {{hanasee.partCount | number:0}}</i></li>
+  <li><i class="fa fa-user"> {{hanasee.viewCount | number:0}}</i></li>
+  <li><i class="fa fa-eye"> {{hanasee.totalViewCount | number:0}}</i></li>
+  <li><i class="fa fa-share-square-o"> {{hanasee.shareCount | number:0}}</i></li>
+  <li class="right"><b>{{hanasee.nickname}}</b></li>
+</ul>
+/hanaseestatus -->
+
+
+<!-- bottom info 
+<ul class="inline-list hanasee-bottom-info">
+  <li>
+      <i class="fa fa-thumbs-up"> {{hanasee.likeCount | number:0}} {{'COMMON.label.like' | translate}}</i>
+  </li>
+  <li>
+      <i class="fa fa-share-square"> {{hanasee.shareCount | number:0}} {{'COMMON.label.share' | translate}}</i>
+  </li>
+  <li>
+      <i class="fa fa-comment"> {{hanasee.commentCount | number:0}} {{'COMMON.label.reply' | translate}}</i>
+  </li>
+</ul>
+ /bottom info -->
+
+<!-- tips 
+<div class="panel radius hanasee-info">
+  <h5>{{'HANASEE_PAGE.description.tips.title' | translate}}</h5>
+  <ul>
+    <li translate="HANASEE_PAGE.description.tips.line1" translate-values="{ tag: '<i class=\'fa fa-bookmark-o\'></i>' }"></li>
+    <li translate="HANASEE_PAGE.description.tips.line2" translate-values="{ tag: '<i class=\'fa fa-thumbs-o-up\'></i>' }"></li>
+    <li translate="HANASEE_PAGE.description.tips.line3" translate-values="{ tag: '<i class=\'fa fa-share-square-o\'></i>' }"></li>
+    <li translate="HANASEE_PAGE.description.tips.line4" translate-values="{ tag: '<i class=\'fa fa-bookmark-o\'></i>', tag2: '<i class=\'fa fa-thumbs-o-up\'></i>' }"></li>
+  </ul>
+</div>
+ /tips -->
+ 
+<!-- action buttons 
+<div class="small-12 medium-12 large-12 column">
+  <ul class="button-group radius row">
+    <li class="small-3 medium-3 large-3">
+      <button ng-click="likeAction()" class="tiny button small-12 medium-12 large-12 disable">
+        <i class="fa fa-thumbs{{hanasee.liked?'-':'-o-'}}up fa-2x"></i><br />
+        <small>{{'COMMON.label.like' | translate}}</small>
+      </button>
+    </li>
+    
+    <li class="small-3 medium-3 large-3 dropdown">
+      <a class="dropdown-toggle tiny button small-12 medium-12 large-12">
+        <i class="fa fa-share-square{{shared?'':'-o'}} fa-2x" ng-init="shared=false"></i><br />
+        <small>{{'COMMON.label.share' | translate}}</small>
+      </a>
+
+      <div class="dropdown-menu content text-center row" ng-controller="ShareCtrl">
+        <div class="col-lg-offset-2 col-lg-8 col-xs-offset-1 col-xs-10 text-center">
+          <a href ng-click="shareLink('kakaoTalk', 'hanasee')" ng-click="shared=true">
+              <img src="http://d3vxhqbnuvoxg0.cloudfront.net/img/btn_share_kakaotalk.png" width="32" />
+          </a>
+          <a href ng-click="shareLink('kakaoStory', 'hanasee')" ng-click="shared=true">
+            <img src="http://d3vxhqbnuvoxg0.cloudfront.net/img/btn_share_kakaostory.png" width="32" />
+          </a>
+          <a href ng-click="shareLink('twitter', 'hanasee')" ng-click="shared=true">
+            <img src="http://d3vxhqbnuvoxg0.cloudfront.net/img/btn_share_twitter.png" width="32" />
+          </a>
+          <a href ng-click="shareLink('facebook', 'hanasee')" ng-click="shared=true">
+            <img src="http://d3vxhqbnuvoxg0.cloudfront.net/img/btn_share_facebook.png" width="32" />
+          </a>
+        </div>
+      </div>
+    </li>
+
+    <li class="small-3 medium-3 large-3">
+      <button class="tiny button small-12 medium-12 large-12 disable" onclick="angular.element('.right-off-canvas-toggle').click();">
+        <i class="fa fa-comment-o fa-2x"></i><br />
+        <small>{{'COMMON.label.reply' | translate}}</small>
+      </button>
+    </li>
+
+    <li class="small-3 medium-3 large-3">
+      <button ng-click="changeOrder()" class="tiny button small-12 medium-12 large-12 disable">
+        <i class="fa fa-sort-alpha-{{partsOrder?partsOrder:'asc'}} fa-2x"></i><br />
+        <small>{{'COMMON.label.order' | translate}}</small>
+      </button>
+    </li>
+  </ul>
+</div>
+ /action buttons -->
+
+</div>
+<!-- /item-body -->
+
+<!-- adcode -->
+<div class="text-center" ng-include="'views/ad.html'"></div>
+<!-- /adcode -->
+
+
+<hr />
+
+<!-- item-action -->
+<ul class="item-action list-inline row text-center">
+  <li class="col-xs-3 cursor-pointer" ng-click="likeAction()" ng-class="{'active':hanasee.liked}">
+    <i class="fa fa-thumbs{{hanasee.liked?'-':'-o-'}}up"></i>
+    <!--
+    <br />
+    <small>{{'COMMON.label.like' | translate}}</small>
+    <span class="fa-stack fa-lg fa-4x">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-thumbs{{hanasee.liked?'-':'-o-'}}up fa-stack-1x fa-inverse"></i>
+    </span>
+    -->
+    <span class="badge">
+      {{hanasee.likeCount | number:0}}
+    </span>
+
+  </li>
+  
+  <li class="col-xs-3 cursor-pointer dropdown dropdown-toggle" ng-class="{'active':shared}">
+    <i class="fa fa-share-square{{shared?'':'-o'}}" ng-init="shared=false"></i>
+    <!--
+    <span class="fa-stack fa-lg fa-4x">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-share-square{{shared?'':'-o'}} fa-stack-1x fa-inverse"></i>
+    </span>
+    -->
+    <ul class="dropdown-menu list-inline row" ng-controller="ShareCtrl">
+      <li  class="col-xs-3 cursor-pointer" ng-click="shareLink('kakaoTalk', 'hanasee')" ng-click="shared=true">
+        <img src="/images/btn_share_kakaotalk.png" width="32" />
+      </li>
+      <li  class="col-xs-3 cursor-pointer" ng-click="shareLink('kakaoStory', 'hanasee')" ng-click="shared=true">
+        <img src="/images/btn_share_kakaostory.png" width="32" />
+      </li>
+      <li  class="col-xs-3 cursor-pointer" ng-click="shareLink('twitter', 'hanasee')" ng-click="shared=true">
+        <img src="/images/btn_share_twitter.png" width="32" />
+      </li>
+      <li  class="col-xs-3 cursor-pointer" ng-click="shareLink('facebook', 'hanasee')" ng-click="shared=true">
+        <img src="/images/btn_share_facebook.png" width="32" />
+      </li>
+    </ul>
+  </li>
+
+  <li class="col-xs-3 cursor-pointer" ng-class="{'active':hanasee.commentCount > 0}" ng-click="commentsModalOpen()">
+    <i class="fa fa-comment-o"></i>
+    
+    <span class="badge">
+      {{hanasee.commentCount | number:0}}
+    </span>
+    
+    <!--
+    <span class="fa-stack fa-lg fa-4x">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-comment-o fa-stack-1x fa-inverse"></i>
+    </span>
+    <button class="tiny button small-12 medium-12 large-12 disable" onclick="angular.element('.right-off-canvas-toggle').click();">
+      <i class="fa fa-comment-o fa-2x"></i><br />
+      <small>{{'COMMON.label.reply' | translate}}</small>
+    </button>
+    -->
+  </li>
+
+  <li class="col-xs-3 cursor-pointer" ng-click="changeOrder()" ng-class="{'active':partsOrder}">
+    <i class="fa fa-sort-amount-{{partsOrder?partsOrder:'asc'}}"></i>
+    <!---
+    <button ng-click="changeOrder()" class="tiny button small-12 medium-12 large-12 disable">
+      <i class="fa fa-sort-alpha-{{partsOrder?partsOrder:'asc'}} fa-2x"></i><br />
+      <small>{{'COMMON.label.order' | translate}}</small>
+    </button>
+    
+    <span class="fa-stack fa-lg fa-4x">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-sort-amount-{{partsOrder?partsOrder:'asc'}} fa-stack-1x fa-inverse"></i>
+    </span>
+    -->
+  </li>
+</ul>
+<!-- /item-action -->
+
+<hr />
+
+<!-- / thumbnail parts
+<div class="text-right">
+  실시간/최신순:
+  <div class="btn-group">
+    <button type="button" class="btn btn-success active">ON</button>
+    <button type="button" class="btn btn-default">OFF</button>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default">ON</button>
+    <button type="button" class="btn btn-danger active">OFF</button>
+  </div>
+</div>
+-->
+
+
+
+<!-- conditional area -->
+<div class="item-condition text-center disabled"
+  ng-if="(hanasee.Author.uid!==userInfo.uid && userInfo.admin!=='Y') &&
+  (
+    (hanasee.options.requireLike && !hanasee.liked) || 
+    (hanasee.password && hanasee.password!=='_' && hanasee.password!==(hanasee.passwordInput | md5))
+    )">
+  <i class="fa fa-lock"></i>
+  <!-- 비공개썰 -->
+  <p ng-if="(hanasee.Author.uid!==userInfo.uid && userInfo.admin!=='Y') &&
+  hanasee.password && hanasee.password!=='_' && hanasee.password!==(hanasee.passwordInput | md5)">
+    <input type="password" class="form-control" ng-model="hanasee.passwordInput" placeholder="{{'PART.placeholder.password' | translate}}">
+  </p>
+  <!-- / -->
+
+  <!-- 좋아요필요 -->
+  <p ng-if="(hanasee.Author.uid!==userInfo.uid && userInfo.admin!=='Y') &&
+  hanasee.options.requireLike && !hanasee.liked">
+    {{'PART.label.requireLike' | translate}}
+  </p>
+  <!-- / -->
+</div>
+<!-- /conditional area -->
+
+
+<!-- item-parts-container -->
+<div class="item-parts-container" ng-if="hanasee.Author.uid===userInfo.uid || userInfo.admin==='Y' ||
+  (
+    (!hanasee.options.requireLike || hanasee.liked) &&
+    (!hanasee.password || hanasee.password==='_' || hanasee.password===(hanasee.passwordInput | md5))
+  )"
+  ng-controller="PartsCtrl" scrollevent="partsScrollEvent(args)" scrollhandler="partsScrollHandler()">
+
+  <!-- write form -->
+  <form class="form form-write" ng-submit="partSave();" 
+    class="hide" ng-class="{hide:hanasee && (hanasee.Author.uid!==userInfo.uid || hanasee.status==='completed')}">
+    <div class="form-group">
+      <div class="left text-center">
+        <input multiple
+          id="part_file"
+          class="hide"
+          type="file"
+          accept="image/*"
+          image="writeTmp.image"
+          change-callback="partSave"
+          ng-click="writeTmp.content='';"
+        />
+        <i class="fa fa-plus cursor-pointer" onclick="$('#part_file').trigger('click');"></i>
+      </div>
+      <div class="right">
+        <textarea wrap="OFF"
+          class="form-control"
+          ng-model="writeTmp.content"
+          placeholder="{{'PART.placeholder.text' | translate}}"
+          ng-trim="true"
+          ng-enter="partSave()"
+        ></textarea>
+        <button type="submit" class="btn" ng-disabled="isPartSave">
+          <!--{{'PART.button.submit' | translate}}-->
+          <i ng-if="!isPartSave" class="fa fa-check"></i>
+          <i ng-if="isPartSave" class="fa fa-refresh fa-spin"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+  <!-- /write form -->
+
+
+  
+  <!-- load button -->
+  <div id="partsLoadBtn-prev" 
+    class="cursor-pointer media center-block disabled" style="width:27em" 
+    ng-class="{'text-red':parts.isLoad || parts.autoLoading==='prev'}"
+    ng-click="partListLoad('prev');">
+    <div class="pull-left" style="padding-left: 0.5em;">
+      <i class="fa fa-refresh fa-3x" ng-class="{'fa-spin':parts.isLoad || parts.autoLoading==='prev'}"></i>
+    </div>
+    <div class="media-body" ng-if="parts.autoLoading!=='prev'">
+      {{'HANASEE_PAGE.label.autoUpdateOff' | translate}}<br />
+      {{'HANASEE_PAGE.label.autoUpdateOffDesc' | translate}}
+    </div>
+    <div class="media-body" ng-if="parts.autoLoading==='prev'">
+      {{'HANASEE_PAGE.label.autoUpdateOn' | translate}} 
+      <small ng-click="autoLoadingStop($event);">
+        {{'HANASEE_PAGE.button.autoUpdateTurnOff' | translate}}
+      </small>
+      <br />
+      {{'HANASEE_PAGE.label.autoUpdateOnDesc' | translate}}
+    </div>
+  </div>
+  <!-- /load button -->
+
+  <hr />
+  
+  <!-- item-parts -->
+  <div class="item-parts">
+    <!-- new part list -->
+    <div ng-repeat="part in parts.data" class="item-part">
+      <!-- bind -->
+      <p class="date" ng-init="prevCreated = $index>0 ? parts.data[$index-1].created : 0" part-divid data-created="{{part.created}}" data-prevCreated="{{prevCreated}}">
+        <i class="fa fa-caret-right"></i>
+      </p>
+      <!-- /bind -->
+      
+      <div class="cursor-pointer" 
+        ng-class="{loaded:part.loaded,
+          'acted': part.commentCount!==0 || part.likeCount!==0,
+          'marked': part.tid==parts.marked
+        }"
+        id="{{part.tid}}" class="text-left" ng-click="partModalOpen(part);">
+        <span ng-if="part.content" ng-bind-html="part.content | linky: part.linky" class="cursor-pointer"></span>
+        <img ng-if="part.imageUrl" ng-src="{{part.imageUrl}}" class="cursor-pointer" />
+        <img ng-if="part.thumbnails" ng-src="{{part.thumbnails[0]}}" class="cursor-pointer" />
+        <div ng-if="part.videoUrl" class="youtube text-center" 
+        style="background: url('http://i.ytimg.com/vi/{{part.videoUrl}}/hqdefault.jpg') no-repeat center center;">
+          <i class="fa fa-youtube-play"></i>
+        </div>
+        <!--
+        <a youtube ng-if="part.videoUrl" ng-href="{{part.videoUrl}}">Watch</a>
+        -->
+        <ul class="list-inline" ng-if="part.Hanasee.Author.uid===userInfo.uid || (part.commentCount!==0 || part.likeCount!==0 || part.tid==parts.marked)">
+          <li class="cursor-pointer" ng-if="part.Hanasee.Author.uid===userInfo.uid" ng-click="partDelete(part.tid, $event);">
+            {{'PART.button.delete' | translate}}
+          </li>
+          
+          <li ng-if="part.Hanasee.Author.uid!==userInfo.uid">
+            <!-- <span ng-click="bookmarkAction($index);" class="cursor-pointer"> -->
+            <span ng-click="bookmarkAction($index);" class="cursor-pointer">
+              <i class="fa fa-bookmark{{part.tid==parts.marked?'':'-o'}}"></i>
+            </span>
+          </li>
+          <!--
+          <li class="pull-right">
+            <button ng-click="saveScrollMove('parts', part.Hanasee.Author.uid+'_'+part.Hanasee.sid+'_'+part.tid, '/part/'+part.Hanasee.Author.uid+'/'+part.Hanasee.sid+'/'+part.tid, $event);"
+              class="transparent padding-0 margin-0 tiny">
+                {{part.created | timeago}}
+            </button>
+          </li>
+          -->
+          <li class="pull-right">
+            <span class="cursor-pointer">
+  <!--            ng-click="move('/part/'+part.Hanasee.Author.uid+'/'+part.Hanasee.sid+'/'+part.tid);"-->
+              <i class="fa fa-comment" ng-if="part.commentCount!==0">&nbsp;{{part.commentCount | number}}</i>
+              <i class="fa fa-comment-o" ng-if="part.commentCount===0"></i>
+            </span>
+          </li>
+
+          <li class="pull-right">
+            <!-- <span ng-click="likeAction($index);" class="cursor-pointer"> -->
+            <span class="cursor-pointer">
+              <i class="fa fa-thumbs{{part.liked?'-':'-o-'}}up" ng-if="part.likeCount!==0">&nbsp;{{part.likeCount | number}}</i>
+              <i class="fa fa-thumbs{{part.liked?'-':'-o-'}}up" ng-if="part.likeCount===0"></i>
+            </span>
+          </li>
+
+        </ul>
+      </div>
+      
+    </div>
+    <!-- /new part list -->
+    
+    <!-- part list 
+    <div class="panel list-parts radius"
+      ng-class="{loaded:part.loaded}"
+      ng-repeat="part in parts.data"
+      id="{{part.tid}}">
+
+      <p ng-if="part.content" ng-bind-html="part.content | linky:'_blank'"></p>
+      <img ng-src="{{part.imageUrl}}" ng-if="part.imageUrl"/>
+      <img ng-src="{{part.thumbnails[0]}}" ng-if="part.thumbnails"/>
+      <a youtube ng-href="{{part.videoUrl}}" ng-if="part.videoUrl">Watch</a>
+
+      <ul class="inline-list">
+        <li ng-if="part.Hanasee.Author.uid===userInfo.uid">
+          <button ng-click="partDelete(part.tid);" class="transparent padding-0 margin-0 tiny">
+              {{'PART.button.delete' | translate}}
+          </button>
+        </li>
+
+        <li ng-if="part.Hanasee.Author.uid!==userInfo.uid">
+          <button ng-click="bookmarkAction($index);" class="transparent padding-0 margin-0 tiny">
+              <i class="fa fa-bookmark{{part.tid==parts.marked?'':'-o'}}"></i>
+          </button>
+        </li>
+
+        <li class="right">
+          <button ng-click="saveScrollMove('parts', part.Hanasee.Author.uid+'_'+part.Hanasee.sid+'_'+part.tid, '/part/'+part.Hanasee.Author.uid+'/'+part.Hanasee.sid+'/'+part.tid, $event);"
+            class="transparent padding-0 margin-0 tiny">
+              {{part.created | timeago}}
+          </button>
+        </li>
+
+        <li class="right">
+          <button
+            ng-click="move('/part/'+part.Hanasee.Author.uid+'/'+part.Hanasee.sid+'/'+part.tid);"
+            class="transparent padding-0 margin-0 tiny">
+              <i class="fa fa-comment" ng-if="part.commentCount!==0"> {{part.commentCount | number}}</i>
+              <i class="fa fa-comment-o" ng-if="part.commentCount===0"></i>
+          </button>
+        </li>
+
+        <li class="right">
+          <button ng-click="likeAction($index);" class="transparent padding-0 margin-0 tiny">
+              <i class="fa fa-thumbs{{part.liked?'-':'-o-'}}up" ng-if="part.likeCount!==0">{{part.likeCount | number}}</i>
+              <i class="fa fa-thumbs{{part.liked?'-':'-o-'}}up" ng-if="part.likeCount===0"></i>
+          </button>
+        </li>
+
+      </ul>
+    </div>
+     /part list -->
+  </div>
+  <!-- /item-parts -->
+
+  <hr />
+
+  <!-- load button -->
+  <div id="partsLoadBtn-next" 
+    class="cursor-pointer media center-block disabled" 
+    ng-class="{'text-red':parts.isLoad || parts.autoLoading==='next'}"
+    style="width:27em" ng-click="partListLoad('next');">
+    <div class="pull-left" style="padding-left: 0.5em;">
+      <i class="fa fa-refresh fa-3x" ng-class="{'fa-spin':parts.isLoad || parts.autoLoading==='next'}"></i>
+    </div>
+    <div class="media-body" ng-if="parts.autoLoading!=='next'">
+      {{'HANASEE_PAGE.label.autoUpdateOff' | translate}}<br />
+      {{'HANASEE_PAGE.label.autoUpdateOffDesc' | translate}}
+    </div>
+    <div class="media-body" ng-if="parts.autoLoading==='next'">
+      {{'HANASEE_PAGE.label.autoUpdateOn' | translate}} 
+      <small ng-click="autoLoadingStop($event);">
+        {{'HANASEE_PAGE.button.autoUpdateTurnOff' | translate}}
+      </small>
+      <br />
+      {{'HANASEE_PAGE.label.autoUpdateOnDesc' | translate}}
+    </div>
+  </div>
+  <!-- /load button -->
+
+  <hr />
+  
+  <h4 class="grid-list-title" ng-click="move('/hanasees/-/today');">
+    {{ 'MAIN_PAGE.label.todaysHanasees' | translate }}
+    <small class="pull-right cursor-pointer">{{ 'COMMON.label.more' | translate }}</small>
+  </h4>
+  <ul class="list-unstyled grid-list">
+    <li class="media" ng-repeat="item in todayHanasees.data">
+      <div class="pull-left text-center height-auto cursor-pointer" ng-click="move('/hanasees/'+item.channel);">
+        <span class="badge">{{'CHANNEL.'+item.channel | translate}}</span>
+      </div>
+      <div class="media-body cursor-pointer"
+        ng-click="move('/hanasee/'+item.Author.uid+'/'+item.sid);">
+        {{item.title}}
+      </div>
+    </li>
+  </ul>
+  <!-- /part list -->
+    
+  <!-- adcode -->
+  <div class="text-center" ng-include="'views/ad.html'"></div>
+  <!-- /adcode -->
+</div>
+<!-- /item-parts-container -->

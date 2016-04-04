@@ -1,0 +1,151 @@
+<div class="modal-header">
+  <div ng-if="part.content" class="word-break" ng-bind-html="part.content | linky: part.linky"></div>
+  <div ng-if="part.imageUrl || part.image">
+    {{ 'COMMON.label.image' | translate }}
+  </div>
+  <div ng-if="part.videoUrl">
+    {{ 'COMMON.label.video' | translate }}
+  </div>
+  <i class="fa fa-times fa-2x pull-right cursor-pointer" ng-if="routeParams.type==='modal'" ng-click="modalClose();"></i>
+</div>
+
+<!--<div class="modal-body">-->
+<div class="part ng-cloak">
+  <h3>
+    <!-- <span ng-if="part.content" ng-bind-html="part.content | linky:'_blank'"></span> -->
+    <img ng-if="part.imageUrl" ng-src="{{part.imageUrl}}"/>
+    <img ng-if="part.image" ng-src="{{part.image}}"/>
+    <a youtube ng-if="part.videoUrl" ng-href="//www.youtube.com/embed/{{part.videoUrl}}?autoplay=1">Watch</a>
+  </h3>
+  
+  <div class="media">
+    <div class="pull-left text-center cursor-pointer" ng-click="move('/dashboard/'+part.Hanasee.Author.uid);">
+      <img ng-if="!part.Hanasee.Author.picture" src="http://placehold.it/64x64/d1d1d1/&text=N/A" class="media-object img-circle" />
+      <img ng-if="part.Hanasee.Author.picture" ng-src="{{part.Hanasee.Author.picture}}" class="media-object img-circle" />
+    </div>
+    
+    <div class="media-body">
+      <p class="author cursor-pointer" ng-click="move('/dashboard/'+part.Hanasee.Author.uid);">
+        {{part.Hanasee.Author.nickname}}
+      </p>
+      <p class="title cursor-pointer" 
+        ng-click="move('/hanasee/'+part.Hanasee.Author.uid+'/'+part.Hanasee.sid);">
+        {{part.Hanasee.title}}
+        <small ng-switch on="part.Hanasee.status">
+          <span ng-switch-when="ready" class="label label-primary">{{'HANASEES_PAGE.status.ready' | translate}}</span>
+          <span ng-switch-when="paused" class="label label-default">{{'HANASEES_PAGE.status.paused' | translate}}</span>
+          <span ng-switch-when="onair" class="label label-danger">{{'HANASEES_PAGE.status.onair' | translate}}</span>
+          <span ng-switch-when="afk" class="label label-info">{{'HANASEES_PAGE.status.afk' | translate}}</span>
+          <span ng-switch-when="completed" class="label label-success">{{'HANASEES_PAGE.status.completed' | translate}}</span>
+        </small>
+      </p>
+    </div>
+  </div>
+  
+  <hr />
+  
+  <ul class="part-action list-inline row text-center">
+    <li class="col-xs-4 cursor-pointer" ng-if="part.Hanasee.Author.uid===userInfo.uid" ng-click="partDelete();">
+      <p>
+        <i class="fa fa-trash-o fa-2x"></i>
+      </p>
+      {{'PART.button.delete' | translate}}
+    </li>
+    <li class="col-xs-4 cursor-pointer" ng-if="part.Hanasee.Author.uid!==userInfo.uid" ng-click="bookmarkAction();">
+      <p>
+        <i class="fa fa-bookmark{{part.tid==part.marked?'':'-o'}} fa-2x"></i>
+      </p>
+      {{'COMMON.label.mark' | translate}}
+    </li>
+    <!--
+      <li class="dropdown dropdown-toggle cursor-pointer" ng-class="part.Hanasee.Author.uid!==userInfo.uid ? 'col-xs-4' : 'col-xs-6'">
+    -->
+    <li class="dropdown dropdown-toggle cursor-pointer col-xs-4">
+      <p>
+      <i class="fa fa-share-square{{shared?'':'-o'}} fa-2x" ng-init="shared=false"></i>
+      </p>
+      {{'COMMON.label.share' | translate}}
+      
+      <ul class="dropdown-menu list-inline row" ng-controller="ShareCtrl">
+        <li  class="col-xs-3 cursor-pointer" ng-click="shareLink('kakaoTalk', 'part')" ng-click="shared=true">
+          <img src="http://d3vxhqbnuvoxg0.cloudfront.net/img/btn_share_kakaotalk.png" width="32" />
+        </li>
+        <li  class="col-xs-3 cursor-pointer" ng-click="shareLink('kakaoStory', 'part')" ng-click="shared=true">
+          <img src="http://d3vxhqbnuvoxg0.cloudfront.net/img/btn_share_kakaostory.png" width="32" />
+        </li>
+        <li  class="col-xs-3 cursor-pointer" ng-click="shareLink('twitter', 'part')" ng-click="shared=true">
+          <img src="http://d3vxhqbnuvoxg0.cloudfront.net/img/btn_share_twitter.png" width="32" />
+        </li>
+        <li  class="col-xs-3 cursor-pointer" ng-click="shareLink('facebook', 'part')" ng-click="shared=true">
+          <img src="http://d3vxhqbnuvoxg0.cloudfront.net/img/btn_share_facebook.png" width="32" />
+        </li>
+      </ul>
+    </li>
+    <!--
+    <li class="cursor-pointer" ng-class="part.Hanasee.Author.uid!==userInfo.uid ? 'col-xs-4' : 'col-xs-6'" ng-click="likeAction();">
+    -->
+    <li class="cursor-pointer col-xs-4" ng-click="likeAction();">
+      <p>
+        <i class="fa fa-thumbs{{part.liked?'-':'-o-'}}up fa-2x"></i>
+      </p>
+      {{'COMMON.label.like' | translate}}
+    </li>
+  </ul>
+
+  <hr />
+
+  <div ng-controller="CommentCtrl"
+    ng-init="tmp = appInfo.currentPath.split('/');
+      filter = ['filterPart', routeParams.tid];
+      key = appInfo.appname+'|'+routeParams.uid+'|'+routeParams.sid;
+      comentsInit(key, filter);
+    "
+  >
+    <form class="form comment-wirte-form" ng-submit="commentSave();">
+      <input type="text"
+        ng-model="commentWrite.content"
+        placeholder="{{'COMMENT_CTRL.placeholder.content' | translate}}"
+        required="true">
+      <button type="submit" class="button postfix radius">
+        {{'COMMENT_CTRL.button.submit' | translate}}
+      </button>
+    </form>
+    <hr />
+    
+    <div class="comment"
+      ng-class="{loaded:comment.loaded}"
+      ng-repeat="comment in comments.data"
+      id="{{part.Hanasee.Author.uid}}_{{part.Hanasee.sid}}_{{part.tid}}">
+      <ul class="list-inline">
+        <li>{{comment.Author.nickname}}</li>
+        
+        <li class="cursor-pointer pull-right" 
+          ng-if="comment.Author.uid===userInfo.uid" 
+          ng-click="commentDelete(comment.url, comment.cid);">
+          {{'COMMENT_CTRL.button.delete' | translate}}
+        </li>
+        
+        <li class="pull-right">
+          {{comment.created | timeago}}
+        </li>
+        
+        <li class="cursor-pointer pull-right" 
+          ng-if="comment.likeCount!==0" ng-click="likeAction($index);">
+          <i class="fa fa-thumbs{{comment.liked?'-':'-o-'}}up"></i> {{comment.likeCount | number}}
+        </li>
+        <li class="cursor-pointer pull-right" 
+          ng-if="comment.likeCount===0" ng-click="likeAction($index);">
+          <i class="fa fa-thumbs{{comment.liked?'-':'-o-'}}up"></i>
+        </li>
+      </ul>
+      <p ng-bind-html="comment.content | linky: comment.linky"></p>
+    </div>
+    
+    <div class="cursor-pointer text-center" ng-click="commentListLoad();">
+      <i class="fa fa-refresh fa-2x" ng-class="{'fa-spin':comments.isLoad}"></i>
+    </div>
+
+  </div>
+  <!-- /comment list -->
+ </div>
+ <!-- /part -->

@@ -1,0 +1,200 @@
+.details {
+}
+
+.item-manage {
+  color: #c62f2f;
+  margin-bottom: 0;
+  font-size: 1.2em;
+}
+.item-manage > li {
+  padding: .5em;
+}
+
+.item-header, .item-body, .item-parts {
+  padding: 0 1em;
+}
+.item-header > .list-inline {
+  color: #c62f2f;
+  margin-bottom: 0;
+  font-size: 1.4em;
+}
+.item-header > .list-inline > li {
+  padding: 0 .1em;
+}
+.item-header > .list-inline > li.label {
+  padding: .3em;
+}
+
+.item-body > p {
+  font-size: 1.7em;
+}
+
+ul.tags {
+  margin-bottom: 1.5em;
+}
+
+ul.tags li {
+  background-color: #d1d1d1;
+  color: white;
+  margin-right: .5em;
+  padding: 0.4em 0.5em;
+  border-radius: .6em;
+  font-size:1.1em;
+  margin-bottom: .5em;
+}
+
+.item-condition { margin-bottom:4em; }
+
+.item-condition > i.fa-lock { font-size:14em; }
+
+.item-parts-container > .form-write > .form-group {
+  font-size: 1.9em;
+  background-color: rgba(209,209,209,.6);
+  padding: .5em;
+  padding-left: 0;
+  height: 2.7em;
+  margin-bottom: 0;
+  width: 100%;
+  max-width: 1024px;
+  position: fixed;
+  bottom: 0;
+  z-index: 999;
+  -webkit-transform: translateZ(0);
+}
+.item-parts-container > .form-write > .form-group > div {
+  float:left;
+}
+.item-parts-container > .form-write > .form-group > div.left {
+  width:15%
+}
+.item-parts-container > .form-write > .form-group > div.right {
+  width:85%
+}
+.item-parts-container > .form-write > .form-group > div > i {
+  font-size: 2em;
+  color: white;
+}
+.item-parts-container > .form-write > .form-group > div > input,
+.item-parts-container > .form-write > .form-group > div > textarea {
+  width: 80%;
+  float: left;
+  font-size: .9em;
+  height: 1.9em;
+  overflow-y: hidden;
+  resize: none;
+  
+  border-top-left-radius: .3em;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: .3em;
+  border-bottom-right-radius: 0;
+}
+.item-parts-container > .form-write > .form-group > div > button {
+  width: 20%;
+  font-size: 1.17em;
+  padding: 0 .3em;
+  background-color: #c62f2f;
+  color: white;
+  border-top-left-radius: 0;
+  border-top-right-radius: .3em;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: .3em;
+  
+}
+.item-parts-container > .form-write > .form-group > div > input:focus,
+.item-parts-container > .form-write > .form-group > div > button:focus {
+  outline-offset: 0px;
+  outline:none;
+}
+.item-parts-container > .item-parts > .item-part > div > div.youtube {
+  -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;
+}
+.item-parts-container > .item-parts > .item-part > div > div.youtube > i.fa {
+  font-size: 5em;
+  padding: .5em .9em;
+  color: #c62f2f;
+}
+
+.item-parts-container > .item-parts > .item-part > div {
+  font-size: 1.4em;
+  margin-bottom: 1.2em;
+}
+.item-parts-container > .item-parts > .item-part > div > img {
+  min-width: 100%;
+  max-width: 100%;
+}
+.item-parts-container > .item-parts > .item-part > div > ul.list-inline {
+  font-size: .7em;
+  margin-top: .8em;
+  margin-bottom: 0;
+}
+.item-parts-container > .item-parts > .item-part > div >  ul.list-inline > li {
+  padding: 0 .3em;
+}
+
+.item-parts-container > .item-parts > .item-part > div {
+  background-color: #d1d1d1;
+  padding: 0.3em 0.4em;
+  -webkit-border-radius: .4em;
+  -moz-border-radius: .4em;
+  -o-border-radius: .4em;
+  border-radius: .4em;
+  max-width: 100%;
+  min-width: 0%;
+  display: inline-block;
+}
+/*
+.item-parts > .item-part > div.marked > span {
+  background-color: #c62f2f; color: #FFF;
+  padding: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+}
+*/
+.item-parts-container > .item-parts > .item-part > div.marked {
+  background-color: #c62f2f; color: #FFF;
+}
+
+.item-parts-container > .item-parts > .item-part > hr {
+  border-top: 1px dashed #d1d1d1;
+  padding:0; margin:0
+}
+.item-parts-container > .item-parts > .item-part > p.date {
+  border-top: 1px dashed #d1d1d1;
+  padding: .5em 0; color: #c62f2f;
+}
+
+.item-action {
+  margin-bottom: 0;
+}
+.item-action > li {
+  color: #d1d1d1;
+  font-size: 3.5em;
+}
+.item-action > li.active {
+  color: #c62f2f;
+}
+.item-action > li > span.badge {
+  background-color:#d1d1d1; 
+  border: 1px solid white;
+  color:#FFF; 
+  font-size:.35em;
+  margin-left: -1.5em;
+}
+.item-action > li.active > span.badge {
+  background-color: #c62f2f;
+}
+
+
+@media (min-width:480px) { 
+  .item-parts-container > .item-parts > .item-part > div > div.youtube > i.fa {
+    font-size: 8em; padding: .5em .9em;
+  }
+}
+@media (min-width:640px) { 
+}
+@media (min-width:768px) { 
+}
+@media (min-width:960px) { 
+}

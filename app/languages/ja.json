@@ -1,0 +1,397 @@
+{
+  "TITLE": "はなし",
+  "COMMON": {
+    "notSelect": "選択なし",
+    "label": {
+      "like": "LIKE",
+      "share": "シェア",
+      "reply": "コメント",
+      "mark": "ブックマーク",
+      "order": "整列",
+      "change": "変更",
+      "more": "もっと見る",
+      "thumbnails": "サムネイル",
+      "thumbnail": "サムネイル",
+      "images": "画像",
+      "image": "画像",
+      "videos": "動画",
+      "video": "動画",
+      "password": "パスワード",
+      "setted": "設定完了",
+      "notSetted": "未設定"
+    },
+    "user": "{{nickname}}様",
+    "warning": {
+      "fileSize": "5メガバイトまでアップロードすることができます."
+    },
+    "confirm": {
+      "delete": "削除しますか？"
+    }
+  },
+  "CHANNEL": {
+    "all": "すべて",
+    "fanfic": "ファンフィクション",
+    "issue": "問題",
+    "fanfic": "ファンフィクション",
+    "humor": "ユーモア",
+    "information": "情報",
+    "livestream": "ライブストリーム",
+    "life": "生活",
+    "love": "愛",
+    "emotion": "感情",
+    "horror": "ホラー",
+    "etc": "その外",
+    "undefined": "None"
+  },
+  "APP_AD": {
+    "label": {
+      "hanaseeForAndroid": "Android用 はなし",
+      "availableOnGooglePlay": "Google Play!でダウンロードができます。"
+    },
+    "button": {
+      "download": "ダウンロード"
+    }
+  },
+  "LANDING_PAGE": {
+    "label": {
+      "signin": "ログイン",
+      "signup": "新規取得",
+      "next": "次へ",
+      "first": {
+        "title": "<b>はなし</b>, 10秒で加入してみてください",
+        "desc": "そして、多く話を交わしてみてください<br />既にメンバーですか？"
+      },
+      "second": {
+        "title": "あなたの <b>はなし</b>を上げてください。",
+        "desc": "あなたの日常、楽しいユーモア、恋愛相談<br />どんなことでもいいです。"
+      },
+      "third": {
+        "title": "ほかの人の <b>はなし</b>を読んで見てください",
+        "desc": "完結された一つの物語からリアルタイムで行われる<br />すべてのことを確認してください"
+      },
+      "fourth": {
+        "title": "多くサブスクライバを作ってみてください",
+        "desc": "私の話​​を一つ一つ聞いてくれる<br />熱血購読者を作ってみてください"
+      },
+      "fivth": {
+        "title": "<b>準備完了！</b>",
+        "desc": "10秒で加入して、<br />皆さんの <b>はなし</b>をお聞かせください"
+      }
+    }
+  },
+  "NAV_PAGE": {
+    "label": {
+      "bookmark": "お気に入り",
+      "myHanasee": "私が書いた文",
+      "setting": "設定"
+    },
+    "menu": {
+      "dashboard": "ダッシュボード",
+      "main": "メイン",
+      "notice": "お知らせ",
+      "settings": "App 設定",
+      "help": "ヘルプ",
+      "activities": "私の活動",
+      "signinCallback": "認証処理中",
+      "part": "PART",
+      
+      "signin": "ログイン",
+      "signup": "新規取得",
+      "signout": "ログアウト",
+      "write": "はなし書き",
+      "more": "もっと見る",
+      "mypage": "私のページ",
+      "setting": {
+        "language": "言語の選択",
+        "country": "国の選択",
+        "app": "Application",
+        "account": "アカウント",
+        "notice": "お知らせ",
+        "tos": "利用規約",
+        "cs": "ヘルプ",
+        "report": "バグ申告",
+        "info": "情報"
+      }
+    }
+  },
+  "SIGNUP_PAGE": {
+    "title": "新規取得",
+    "label": {
+      "gender": "性別",
+      "age": "年齢"
+    },
+    "gender": {
+      "male": "男",
+      "female": "女"
+    },
+    "ageUnit": {
+      "default": "{{age}}",
+      "under": "Younger than {{age}}",
+      "over": "Older than {{age}}"
+    },
+    "placeholder": {
+      "email": "メール",
+      "nickname": "ニックネーム",
+      "password": "パスワード",
+      "passwordCheck": "パスワードの 確認"
+    },
+    "message": {
+      "nicknameDup": " このニックネームは使っています。."
+    }
+  },
+  "LOGIN_PAGE": {
+    "title": "ログイン"
+  },
+  "MAIN_PAGE": {
+    "label": {
+      "todaysHanasees": "今日のはなし",
+      "todaysPictures": "ベストイメージ",
+      "live": "生放送",
+      "bestAuthor": "ベストアーティスト",
+      "todaysParts": "今日のベストコメント"
+    }
+  },
+  "WRITE_PAGE": {
+    "title": "はなし書き",
+    "label": {
+      "title": "タイトル",
+      "description": "説明",
+      "country": "国",
+      "channel": "チャンネル",
+      "tags": "タグ",
+      "images": "画像",
+      "thumbnails": "プレビュー",
+      "oldImages": "アップロードされた画像",
+      "requireLike": "LIKEを押した人だけに公開する。",
+      "password": "シークレットモード　（非公開）",
+      "options": "オプション"
+    },
+    "button": {
+      "imageUpload": "画像アップロード",
+      "submit": "書き"
+    },
+    "desc": {
+      "channel": "チャンネルを選択してください。",
+      "images": "画像は{{cnt}}枚アップロードすることができます。"
+    },
+    "placeholder": {
+      "tags": "タグはスペースで区切りになります。",
+      "password": "パスワード"
+    }
+  },
+  "HANASEES_PAGE": {
+    "nav": {
+      "ready": "待機",
+      "onair": "放送中",
+      "completed": "はなし"
+    },
+    "status": {
+      "ready": "準備",
+      "paused": "一時停止",
+      "onair": "放送中",
+      "afk": "外出中",
+      "completed": "完結"
+    },
+    "order": {
+      "trends": "視聴者",
+      "best": "閲覧数",
+      "new": "日付"
+    },
+    "label": {
+      "search": "検索（キーワード）: {{search}}",
+      "result": "{{country}}で 約 {{count}} 件の検索結果があります。"
+    }
+  },
+  "HANASEE": {
+    "label": {
+      "viewCount": "{{cnt}}人が見ています。",
+      "totalViewCount": "{{cnt}}人が見ました。"
+    }
+  },
+  "HANASEE_PAGE": {
+    "notification": {
+      "label": {
+        "write": "メッセージ書き"
+      },
+      "placeholder": {
+        "message": "内容"
+      },
+      "description": {
+        "message": "* 通知は、ブックマークした人にだけ通知が行きます。"
+      },
+      "button": {
+        "submit": "メッセージ する！",
+        "delete": "削除"
+      }
+    },
+    "description": {
+      "nickname": "作家: {{nickname}}",
+      "tips": {
+        "title": "Tip for enjoy!!",
+        "line1": "{{tag}} Bookmark: ブックマークは、再接続する時に続いて見られます。.",
+        "line2": "{{tag}} Like: LIKEは、作家様に応援のメッセージを送れます。",
+        "line3": "{{tag}} Share: シェアは、友達と一緒に楽しめるいい方法です。",
+        "line4": "{{tag}} Bookmark and {{tag2}} Like: 作家様の通知を受けて見られます。."
+      }
+    },
+    "label": {
+      "autoUpdateOn": "自動アップデート機能が付いています。",
+      "autoUpdateOnDesc": "携帯電話のデータを使用する時、料金が過剰請求されるおそれがあります。",
+      "autoUpdateOff": "自動アップデート機能が消えています。",
+      "autoUpdateOffDesc": "最新のデータを受けることができる機能です。"
+    },
+    "button": {
+      "notification": "お知らせする",
+      "delete": "削除",
+      "update": "修正",
+      "completed": "完結",
+      "completedCencle": "完結キャンセル",
+      "autoUpdateTurnOff": "Turn off"
+    }
+  },
+  "PART": {
+    "label": {
+      "write": "パートを書く",
+      "password": "非公開のなはしです。",
+      "requireLike": "LIKEをしたら見られます。。"
+    },
+    "placeholder": {
+      "text": "内容",
+      "url": "イメージの URL",
+      "video": "YouTubeの URL",
+      "password": "はなしのパスワードを入力してください。"
+    },
+    "button": {
+      "typeText": "テキスト",
+      "typeUrl": "イメージの URL",
+      "typeVideo": "YouTubeの URL",
+      "typeFILE": "画像をアップロード",
+      "submit": "書き",
+      "delete": "削除"
+    },
+    "sync" : {
+      "message" : "リアルタイム更新中",
+      "stop": "停止"
+    }
+  },
+  "PART_PAGE": {
+    
+  },
+  "CHANNEL_PAGE": {
+    "title": "チャンネル"
+  },
+  "DASHBOARD_PAGE": {
+    "title": "ダッシュボード",
+    "group": {
+      "myProfile": "私のプロフィール",
+      "someonesProfile": "{{nickname}}様のプロフィール",
+      "myHanasees": "私のはなし",
+      "someonesHanasees": "{{nickname}}様のはなし",
+      "myBookmarks": "私のブックマーク",
+      "someonesBookmarks": "{{nickname}}様のブックマーク"
+    },
+    "label": {
+      "picture": "プロフィール写真",
+      "nickname": "ニックネーム",
+      "email": "メール",
+      "password": "パスワード",
+      "disableAccount": "アカウントの無効化",
+      "country": "国",
+      "language": "言語"
+    }
+  },
+  "SETTINGS_PAGE": {
+    "title": "App 設定",
+    "group": {
+      "country": "国",
+      "notification": "通知の設定"
+    },
+    "label": {
+      "activeCountry": "活動国",
+      "comment": "コメント",
+      "favoriteHanaseeAction": "私が反応したはなしニュース",
+      "myHanaseeChange": "私のはなし状態変更",
+      "myHanaseeReact": "私のはなしの反応",
+      "myHanaseeView": "私のはなし見る",
+      "myReact": "私がした反応",
+      "myStatusChange": "私の状態変更"
+    }
+  },
+  "ACTIVITIES_PAGE": {
+    "title": "活動履歴",
+    "label": {
+      "showAllActivities": "すべての活動の履歴を表示"
+    }
+  },
+  "COMMENT_PAGE": {
+    "title": "コメント"
+  },
+  "HELP_PAGE": {
+    "title": "ヘルプ",
+    "subnav": {
+      "notice": "お知らせ",
+      "faq": "よくある質問",
+      "qna": "お問い合わせ"
+    },
+    "faq" : {
+      "label" : {
+        "all": "全て",
+        "account": "アカウント",
+        "usage": "機能",
+        "payment": "決済",
+        "service": "サービス",
+        "etc": "その外"
+      }
+    },
+    "qna": {
+      "label": {
+        "pushToAsk": "ここをクリックして質問をする",
+        "pushToAskCancel": "ここをクリックして、質問キャンセルする",
+        "fillToAsk": "お問い合わせを記録してください",
+        "ask": "お問い合わせ",
+        "question": "質問",
+        "answer": "回答",
+        "requested": "受付",
+        "complated": "完了"
+      }
+    }
+  },
+  "PRIVACY_PAGE": {
+    "title": "個人情報保護方針",
+    "label": { }
+  },
+  "TOS_PAGE": {
+    "title": "サービス利用規約",
+    "label": { }
+  },
+  "LANGUAGE_PAGE": {
+    "title": "言語"
+  },
+  "COUNTRY_PAGE": {
+    "title": "国"
+  },
+  "FOOTER_PAGE": {
+    "compInfo": "Jumping Nuts Inc. 4414, 4F 775-2 Yeoksam-dong, Gangnam-gu, Seoul #135-928 Republic of Korea 事業者登録番号 220-88-66394 通信販売業申告番号 제2013-서울강남-02581호 CEO: Oh, Hwan"
+  },
+  "COMMENT_CTRL": {
+    "label": {
+      "write": "コメント"
+    },
+    "placeholder": {
+      "content": "内容"
+    },
+    "button": {
+      "submit": "書き",
+      "delete": "削除"
+    }
+  },
+  
+  "SERVER_MSG": {
+    "hanasee": {
+      "notice": {
+        "200": "{{cnt}}人に送られました。"
+      }
+    }
+  }
+  
+}

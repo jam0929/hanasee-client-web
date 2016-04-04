@@ -1,0 +1,76 @@
+
+footer {
+  padding-bottom:55px;
+}
+
+/** Navigation **/
+/*** 상단 메뉴 및 사이드 메뉴 ***/
+.title, .title:hover {
+  color:#DDD;
+}
+.title img {
+  height: 1.8rem;
+  margin-top: -1rem;
+}
+.title i {
+  line-height: 3.6rem
+}
+
+.tab-bar {
+  position: fixed;
+  top: 0px;
+  width:100%;
+  z-index: 1;
+}
+.tab-bar, .left-off-canvas-menu, .right-off-canvas-menu {
+  background-color: #0A2A34;
+}
+
+.left-off-canvas-menu, .right-off-canvas-menu {
+  padding-bottom: 60px;
+}
+
+
+button.transparent, .button.transparent, .transparent,
+button.transparent:visited, .button.transparent:visited, .transparent:visited {
+  color: #3b5998;
+  background-color: transparent;
+}
+button.transparent:hover, .button.transparent:hover, .transparent:hover,
+button.transparent:active, .button.transparent:active, .transparent:active {
+  color: #23355b;
+  background-color: transparent;
+}
+
+
+/** 앱광고 **/
+.ad-app {
+  display: none;
+}
+.ad-app-on .off-canvas-wrap {
+  top: 3.6em;
+}
+.ad-app-on .off-canvas-wrap nav {
+  top: 3.6em;
+}
+
+.ad-app-on div.ad-app {
+  display: block;
+  position: fixed; 
+  top:0; 
+  background-color:white; 
+  z-index:9999;
+  width: 100%;
+  padding: 0.5em;
+}
+.ad-app-on div.ad-app p {
+  font-size: 0.8em;
+  margin-bottom: 0px;
+}
+.ad-app-on div.ad-app button.small {
+  margin-bottom: 0px;
+  padding: 1em;
+}
+.ad-app-on div.ad-app .no-btn {
+  padding: 0.8em 0.5em 0.8em 0em;
+}

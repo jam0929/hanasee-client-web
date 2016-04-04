@@ -1,0 +1,398 @@
+{
+  "TITLE": "Hanasee",
+  "COMMON": {
+    "notSelect": "Not selected",
+    "label": {
+      "like": "Like",
+      "share": "Share",
+      "reply": "Comment",
+      "mark": "Bookmark",
+      "order": "Sort",
+      "change": "Change",
+      "more": "See more",
+      "thumbnails": "Thumbnails",
+      "thumbnail": "Thumbnail",
+      "images": "Images",
+      "image": "Image",
+      "videos": "Videos",
+      "video": "Video",
+      "password": "Password",
+      "setted": "Setted",
+      "notSetted": "Not setted"
+    },
+    "user": "{{nickname}}",
+    "warning": {
+      "fileSize": "You can upload up to 1MB."
+    },
+    "confirm": {
+      "delete": "Are you sure?"
+    }
+  },
+  "CHANNEL": {
+    "all": "All",
+    "fanfic": "Fanfiction",
+    "humor": "Humor",
+    "information": "Information",
+    "livestream": "Livestream",
+    "life": "Life",
+    "love": "Love",
+    "emotion": "Emotion",
+    "horror": "Horror",
+    "etc": "Etc",
+    "undefined": "None"
+  },
+  "APP_AD": {
+    "label": {
+      "hanaseeForAndroid": "Hanasee For Android",
+      "availableOnGooglePlay": "Available on Google Play!"
+    },
+    "button": {
+      "download": "Download"
+    }
+  },
+  "LANDING_PAGE": {
+    "label": {
+      "signin": "Sign in",
+      "signup": "Getting Started",
+      "next": "Next",
+      "first": {
+        "title": "Sign up <b>Hanasee</b>, just 10 sec!",
+        "desc": "And talk about something<br />Already joined? "
+      },
+      "second": {
+        "title": "Open your <b>Hanasee</b>",
+        "desc": "Your life, humor, love stories...<br />Whatever!"
+      },
+      "third": {
+        "title": "Read other's <b>Hanasee</b>",
+        "desc": "Check all <b>Hanasee</b>s around the world <br />in real-time"
+      },
+      "fourth": {
+        "title": "Make your milion followers",
+        "desc": "Find your followers<br />who crazy about my <b>Hanasee</b>"
+      },
+      "fivth": {
+        "title": "<b>Ready to JUMP!</b>",
+        "desc": "Join with only 10sec<br />and enjoy <b>Hanasee</b>"
+      }
+    }
+  },
+  "NAV_PAGE": {
+    "label": {
+      "bookmark": "Bookmark",
+      "myHanasee": "Mine",
+      "setting": "Settings"
+    },
+    "menu": {
+      "dashboard": "Dashboard",
+      "main": "Main",
+      "notice": "Notice",
+      "settings": "App settings",
+      "help": "Help",
+      "activities": "My activities",
+      "signinCallback": "Signing in",
+      "part": "Part",
+      
+      "signin": "Login",
+      "signup": "Register",
+      "signout": "Logout",
+      "write": "Write new story",
+      "more": "See more",
+      "mypage": "My page",
+      "setting": {
+        "language": "Language",
+        "country": "Country",
+        "app": "Application",
+        "account": "Account",
+        "notice": "Notice",
+        "tos": "Term of service",
+        "cs": "Customer's Center",
+        "report": "Bug report",
+        "info": "Information"
+      }
+    }
+  },
+  "SIGNUP_PAGE": {
+    "title": "Register",
+    "label": {
+      "gender": "Gender",
+      "age": "Age"
+    },
+    "gender": {
+      "male": "Male",
+      "female": "Female"
+    },
+    "ageUnit": {
+      "default": "{{age}}",
+      "under": "Younger than {{age}}",
+      "over": "Older than {{age}}"
+    },
+    "placeholder": {
+      "email": "Email",
+      "nickname": "Nickname",
+      "password": "Password",
+      "passwordCheck": "Password confirm"
+    },
+    "message": {
+      "nicknameDup": "Duplicated nickname."
+    }
+  },
+  "LOGIN_PAGE": {
+    "title": "Login"
+  },
+  "MAIN_PAGE": {
+    "label": {
+      "todaysHanasees": "Today's Hanasees",
+      "todaysPictures": "Best tisers",
+      "live": "Livestream",
+      "bestAuthor": "Best authors",
+      "todaysParts": "Today's best ments"
+    }
+  },
+  "WRITE_PAGE": {
+    "title": "Write new story",
+    "label": {
+      "title": "Title",
+      "description": "Description",
+      "country": "Country",
+      "channel": "Channel",
+      "tags": "Tags",
+      "images": "Images",
+      "thumbnails": "Previews",
+      "oldImages": "Uploaded images",
+      "requireLike": "Accept only people who liked.",
+      "password": "Secret mode",
+      "options": "Options",
+      "password": "Password",
+      "setted": "Setted",
+      "notStted": "Not setted"
+    },
+    "button": {
+      "imageUpload": "Upload image",
+      "submit": "Submit"
+    },
+    "desc": {
+      "channel": "Please select a channel.",
+      "images": "You can upload {{cnt}} images."
+    },
+    "placeholder": {
+      "tags": "Separated by spaces.",
+      "password": "Password"
+    }
+  },
+  "HANASEES_PAGE": {
+    "nav": {
+      "ready": "Ready",
+      "onair": "On-air",
+      "completed": "Stories"
+    },
+    "status": {
+      "ready": "Preparing",
+      "paused": "Paused",
+      "onair": "On-air",
+      "afk": "AFK",
+      "completed": "Completed"
+    },
+    "order": {
+      "trends": "Watching",
+      "best": "Views",
+      "new": "Date"
+    },
+    "label": {
+      "search": "Keyword: {{search}}",
+      "result": "Total {{count}} results from {{country}}."
+    }
+  },
+  "HANASEE": {
+    "label": {
+      "viewCount": "Watching {{cnt}} people",
+      "totalViewCount": "Watched {{cnt}} people"
+    }
+  },
+  "HANASEE_PAGE": {
+    "notification": {
+      "label": {
+        "write": "Send notification push"
+      },
+      "placeholder": {
+        "message": "Message"
+      },
+      "description": {
+        "message": "* Notification would be sent to only people who bookmarked."
+      },
+      "button": {
+        "submit": "Send!",
+        "delete": "Delete"
+      }
+    },
+    "description": {
+      "nickname": "Writer: {{nickname}}",
+      "tips": {
+        "title": "Tip for enjoy!!",
+        "line1": "{{tag}} Bookmark: 책갈피는 재접속시에 이어볼 수 있어요.",
+        "line2": "{{tag}} Like: 좋아요는 작가님에게 응원의 메세지를 보낼 수 있어요.",
+        "line3": "{{tag}} Share: 공유는 친구들과 함께 즐기는 가장 좋은 방법이에요.",
+        "line4": "{{tag}} Bookmark and {{tag2}} Like: 작가님의 공지를 받아볼 수 있어요."
+      }
+    },
+    "label": {
+      "autoUpdateOn": "Auto updating turned on.",
+      "autoUpdateOnDesc": "Pulling datea in real-time.",
+      "autoUpdateOff": "Auto updating turned off.",
+      "autoUpdateOffDesc": "You can turn on auto updating."
+    },
+    "button": {
+      "notification": "Send notification",
+      "delete": "Delete",
+      "update": "Modify",
+      "completed": "Complate",
+      "completedCencle": "Incomplate",
+      "autoUpdateTurnOff": "Turn off"
+    }
+  },
+  "PART": {
+    "label": {
+      "write": "Write part",
+      "password": "This story is secret story.",
+      "requireLike": "You must like this story for access."
+    },
+    "placeholder": {
+      "text": "Content",
+      "url": "Image's URL",
+      "video": "YouTube URL",
+      "password": "Please input the password of this story."
+    },
+    "button": {
+      "typeText": "Text",
+      "typeUrl": "Image's URL",
+      "typeVideo": "YouTube URL",
+      "typeFILE": "Upload images",
+      "submit": "OK",
+      "delete": "Delete"
+    },
+    "sync" : {
+      "message" : "Now pulling in real-time",
+      "stop": "Stop"
+    }
+  },
+  "PART_PAGE": {
+    
+  },
+  "CHANNEL_PAGE": {
+    "title": "Channel"
+  },
+  "DASHBOARD_PAGE": {
+    "title": "Dashboard",
+    "group": {
+      "myProfile": "My profile",
+      "someonesProfile": "{{nickname}}'s profile",
+      "myHanasees": "My hanasees",
+      "someonesHanasees": "{{nickname}}'s hanasees",
+      "myBookmarks": "My bookmarks",
+      "someonesBookmarks": "{{nickname}}'s bookmarks"
+    },
+    "label": {
+      "picture": "Profile picture",
+      "nickname": "Nickname",
+      "email": "E-mail",
+      "password": "Password",
+      "disableAccount": "Disable account",
+      "country": "Country",
+      "language": "Language"
+    }
+  },
+  "SETTINGS_PAGE": {
+    "title": "App settings",
+    "group": {
+      "country": "Country",
+      "notification": "Notification"
+    },
+    "label": {
+      "activeCountry": "Country",
+      "comment": "Comments",
+      "favoriteHanaseeAction": "Action of my favorites",
+      "myHanaseeChange": "Changing my Hanasee",
+      "myHanaseeReact": "Reaction of my Hanasee",
+      "myHanaseeView": "Viewing of my Hanasee",
+      "myReact": "My actions",
+      "myStatusChange": "Changing of my status"
+    }
+  },
+  "ACTIVITIES_PAGE": {
+    "title": "Activities",
+    "label": {
+      "showAllActivities": "Show all activities"
+    }
+  },
+  "COMMENT_PAGE": {
+    "title": "Comments"
+  },
+  "HELP_PAGE": {
+    "title": "Help",
+    "subnav": {
+      "notice": "Notice",
+      "faq": "FAQ",
+      "qna": "Q&A"
+    },
+    "faq" : {
+      "label" : {
+        "all": "All",
+        "account": "Account",
+        "usage": "Usage",
+        "payment": "Payment",
+        "service": "Service",
+        "etc": "Etc"
+      }
+    },
+    "qna": {
+      "label": {
+        "pushToAsk": "Push to ask",
+        "pushToAskCancel": "Push to cancel asking",
+        "fillToAsk": "Fill to ask",
+        "ask": "Ask",
+        "question": "Question",
+        "answer": "Answer",
+        "requested": "Requested",
+        "complated": "Complated"
+      }
+    }
+  },
+  "PRIVACY_PAGE": {
+    "title": "Privacy rules",
+    "label": { }
+  },
+  "TOS_PAGE": {
+    "title": "Terms of service",
+    "label": { }
+  },
+  "LANGUAGE_PAGE": {
+    "title": "Language"
+  },
+  "COUNTRY_PAGE": {
+    "title": "Country"
+  },
+  "FOOTER_PAGE": {
+    "compInfo": "Jumping Nuts Inc. 4414, 4F 775-2 Yeoksam-dong, Gangnam-gu, Seoul #135-928 Republic of Korea 사업자등록번호 220-88-66394 통신판매업신고번호 제2013-서울강남-02581호 CEO: Oh, Hwan"
+  },
+  "COMMENT_CTRL": {
+    "label": {
+      "write": "Comment"
+    },
+    "placeholder": {
+      "content": "Message"
+    },
+    "button": {
+      "submit": "OK",
+      "delete": "Delete"
+    }
+  },
+  
+  "SERVER_MSG": {
+    "hanasee": {
+      "notice": {
+        "200": "Sent {{cnt}} people."
+      }
+    }
+  }
+  
+}

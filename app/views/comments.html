@@ -1,0 +1,64 @@
+
+<div class="modal-header">
+  {{'COMMENT_PAGE.title' | translate}}
+  <i class="fa fa-times fa-2x pull-right cursor-pointer" ng-click="modalClose();"></i>
+</div>
+
+<div class="list-unstyled" 
+  ng-if="global.currentPageType === 'hanasee'" 
+  ng-controller="CommentCtrl" 
+  ng-init="
+    tmp = appInfo.currentPath.split('/');
+    tmp.shift();
+    tmp.shift();
+    tmp = tmp.join('|');
+    comentsInit(appInfo.appname+'|'+tmp, tmp);
+  "
+>
+  <form class="form comment-wirte-form" ng-submit="commentSave();">
+    <input type="text"
+          ng-model="commentWrite.content"
+          placeholder="{{'COMMENT_CTRL.placeholder.content' | translate}}"
+          required="true">
+    <button type="submit" class="button postfix radius">
+      {{'COMMENT_CTRL.button.submit' | translate}}
+    </button>
+  </form>
+  <hr />
+  
+  <div class="comment" ng-repeat="comment in comments.data" 
+    ng-init="tmp=comment.url.split('|'); tmp.shift(); url = tmp.toString();">
+    <ul class="list-inline">
+      <li>{{comment.Author.nickname}}</li>
+      
+      <li class="cursor-pointer pull-right" 
+        ng-if="comment.Author.uid===userInfo.uid" 
+        ng-click="commentDelete(comment.url, comment.cid);">
+        {{'COMMENT_CTRL.button.delete' | translate}}
+      </li>
+      
+      <li class="pull-right">
+        {{comment.created | timeago}}
+      </li>
+      
+      <li class="cursor-pointer pull-right" 
+        ng-if="comment.likeCount!==0" ng-click="likeAction($index);">
+        <i class="fa fa-thumbs{{comment.liked?'-':'-o-'}}up"></i> {{comment.likeCount | number}}
+      </li>
+      <li class="cursor-pointer pull-right" 
+        ng-if="comment.likeCount===0" ng-click="likeAction($index);">
+        <i class="fa fa-thumbs{{comment.liked?'-':'-o-'}}up"></i>
+      </li>
+      
+      
+    </ul>
+    <small class="cursor-pointer badge" ng-if="comment.filterPart" ng-init="partKey = comment.url.split('|');" ng-click="move('/part/'+partKey[1]+'/'+partKey[2]+'/'+comment.filterPart); modalClose();">
+      #{{comment.filterPart}}
+    </small>
+    <p ng-bind-html="comment.content | linky: comment.linky"></p>
+  </div>
+  
+  <div class="cursor-pointer text-center" ng-click="commentListLoad();">
+    <i class="fa fa-refresh fa-2x" ng-class="{'fa-spin':comments.isLoad}"></i>
+  </div>
+</div>

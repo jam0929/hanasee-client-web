@@ -1,0 +1,23 @@
+.activity > div {
+  border-bottom: 1px solid #d1d1d1;
+  margin-top: 0;
+  padding: .5em .7em;
+}
+.activity > h4 {
+  font-size: 1.8em;
+  padding: .4em .7em;
+  border-bottom: 1px solid #d1d1d1;
+  margin-bottom: 0;
+}
+.activity > div > div.media-body > small {
+  color: #c62f2f;
+}
+.activity.more {
+  padding: 1em;
+  color: #c62f2f;
+  font-weight: bold;
+}
+.activity > div > a > img {
+  width: 2.1em;
+  height: 2.1em;
+}

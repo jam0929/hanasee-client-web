@@ -1,0 +1,125 @@
+<!-- tabs -->
+<ul class="subnav row">
+  <li class="cursor-pointer" ng-class="{active: boards.type==='notice'}" ng-click="move('/help/notice');">
+    {{ 'HELP_PAGE.subnav.notice' | translate }}
+  </li>
+  <li class="cursor-pointer" ng-class="{active: boards.type==='faq'}" ng-click="move('/help/faq');">
+    {{ 'HELP_PAGE.subnav.faq' | translate }}
+  </li>
+  <li class="cursor-pointer" ng-class="{active: boards.type==='qna'}" ng-click="move('/help/qna');">
+    {{ 'HELP_PAGE.subnav.qna' | translate }}
+  </li>
+</ul>
+<!-- /tabs -->
+
+<!-- notice -->
+<ul class="list-unstyled grid-list help" ng-if="boards.type==='notice'" ng-init="boardsOpened = null;">
+  <li class="row cursor-pointer" ng-class="{active: boardsOpened===$index}"
+    ng-repeat="item in boards.data" ng-click="boardsOpened = boardsOpened!==$index?$index:null;">
+    <div class="col-xs-2 text-center">
+      <span class="badge">{{item.category}}</span>
+    </div>
+    <div class="col-xs-10">
+      {{item.title}}
+      <small>{{item.created | date:'MM/dd'}}</small>
+    </div>
+    
+    <div class="content col-xs-12">
+      {{item.content}}
+    </div>
+  </li>
+</ul>
+<!-- /notice -->
+
+<!-- faq -->
+<ul class="category list-inline row text-center" ng-if="boards.type==='faq'">
+  <li class="col-xs-4 cursor-pointer active">{{ 'HELP_PAGE.faq.label.all' | translate }}</li>
+  <li class="col-xs-4 cursor-pointer">{{ 'HELP_PAGE.faq.label.account' | translate }}</li>
+  <li class="col-xs-4 cursor-pointer">{{ 'HELP_PAGE.faq.label.usage' | translate }}</li>
+  <li class="col-xs-4 cursor-pointer">{{ 'HELP_PAGE.faq.label.payment' | translate }}</li>
+  <li class="col-xs-4 cursor-pointer">{{ 'HELP_PAGE.faq.label.service' | translate }}</li>
+  <li class="col-xs-4 cursor-pointer">{{ 'HELP_PAGE.faq.label.etc' | translate }}</li>
+</ul>
+
+<ul class="list-unstyled grid-list help" ng-if="boards.type==='faq'" ng-init="boardsOpened = null;">
+  <li class="row cursor-pointer" ng-class="{active: boardsOpened===$index}"
+    ng-repeat="item in boards.data" ng-click="boardsOpened = boardsOpened!==$index?$index:null;">
+    <div class="col-xs-2 text-center">
+      <span class="badge">{{item.category}}</span>
+    </div>
+    <div class="col-xs-10">
+      {{item.title}}
+      <small>{{item.created | date:'MM/dd'}}</small>
+    </div>
+    
+    <div class="content col-xs-12">
+      {{item.content}}
+    </div>
+  </li>
+</ul>
+<!-- /faq -->
+
+<!-- qna -->
+<ul class="list-unstyled grid-list help" ng-if="boards.type==='qna'" ng-init="boardsOpened = null;">
+  <li class="disabled text-center make-question active">
+    <i class="fa fa-question-circle"></i> 
+    <span class="cursor-pointer" ng-if="!qnsWrite.isOpen" ng-click="qnsWrite.isOpen=true;">
+      {{ 'HELP_PAGE.qna.label.pushToAsk' | translate }}
+    </span>
+    <span class="cursor-pointer" ng-if="qnsWrite.isOpen" ng-click="qnsWrite.isOpen=false;qnsWrite.content='';">
+      {{ 'HELP_PAGE.qna.label.pushToAskCancel' | translate }}
+    </span>
+    
+    <div class="content" ng-if="qnsWrite.isOpen">
+      <form class="write-form">
+        <div class="form-group">
+          <textarea class="form-control" rows="8" ng-model="qnsWrite.content"
+            placeholder="{{ 'HELP_PAGE.qna.label.fillToAsk' | translate }}" 
+            required="true"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <button class="btn btn-block submit" ng-if="qnsWrite.isSave">
+            <i class="fa fa-refresh fa-2x fa-spin"></i>
+          </button>
+          
+          <button type="button" class="btn btn-block submit" ng-if="!qnsWrite.isSave" ng-click="qnaSave()">
+            {{ 'HELP_PAGE.qna.label.ask' | translate }}
+          </button>
+        </div>
+        
+      </form>
+    </div>
+  </li>
+  <li class="row cursor-pointer" ng-class="{active: boardsOpened===$index}"
+    ng-repeat="item in boards.data" ng-click="boardsOpened = boardsOpened!==$index?$index:null;">
+    <div class="col-xs-2 text-center" ng-if="item.Answer.content">
+      <span class="badge">{{ 'HELP_PAGE.qna.label.complated' | translate }}</span>
+    </div>
+    <div class="col-xs-2 text-center" ng-if="!item.Answer.content">
+      <span class="badge disabled">{{ 'HELP_PAGE.qna.label.requested' | translate }}</span>
+    </div>
+    <div class="col-xs-10">
+      {{item.content}}
+      <small>{{item.created | date:'MM/dd'}}</small>
+    </div>
+    
+    <div class="content col-xs-12">
+      <div class="question">
+        <i class="fa fa-caret-right"> {{ 'HELP_PAGE.qna.label.question' | translate }}</i>
+      </div>
+      {{item.content}}
+      <div class="answer" ng-if="item.Answer.content">
+        <i class="fa fa-caret-right"></i> {{ 'HELP_PAGE.qna.label.answer' | translate }}
+      </div>
+      {{item.Answer.content}}
+    </div>
+  </li>
+</ul>
+<!-- /qna -->
+
+
+<!-- adcode -->
+<div class="text-center" ng-include="'views/ad.html'"></div>
+<!-- /adcode -->
+

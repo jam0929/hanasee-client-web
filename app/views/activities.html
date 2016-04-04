@@ -1,0 +1,36 @@
+<div class="modal-header" ng-if="activities.type==='modal'">
+  {{'ACTIVITIES_PAGE.title' | translate}}
+  <i class="fa fa-times fa-2x pull-right cursor-pointer" ng-click="modalClose();"></i>
+</div>
+
+
+<!-- adcode -->
+<div class="text-center" ng-if="activities.type!=='modal'" ng-include="'views/ad.html'"></div>
+<!-- /adcode -->
+
+
+<div scrollevent="activitiesScrollEvent(args)" scrollhandler="activitiesScrollHandler()">
+  <div class="activity" ng-repeat="item in activities.data">
+    <h4 ng-if="activities.type!=='modal'" ng-init="prevCreated = $index>0 ? activities.data[$index-1].created : 0" part-divid data-created="{{item.created}}" data-prevCreated="{{prevCreated}}">
+      <i class="fa"></i>
+    </h4>
+    
+    <div class="media cursor-pointer" ng-click="modalClose(); move(item.url, $event);">
+      <a class="pull-left text-center" ng-click="modalClose(); move('/dashboard/'+(item.action_user ? item.action_user.uid : ''), $event);">
+        <img ng-if="!item.action_user.picture" class="media-object img-circle" src="http://placehold.it/45x45/d1d1d1/&text=N/A"/>
+        <img ng-if="item.action_user.picture" class="media-object img-circle" ng-src="{{item.action_user.picture}}"/>
+      </a>
+      <div class="media-body">
+        {{item.message}}
+        <small>{{item.created | timeago}}</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- see all - dialog mode 일때만 -->
+<div class="media activity more text-center cursor-pointer" 
+  ng-if="activities.type==='modal'" ng-click="modalClose(); move('/activities/'+userInfo.uid);">
+  {{'ACTIVITIES_PAGE.label.showAllActivities' | translate}}
+</div>

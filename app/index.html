@@ -1,0 +1,261 @@
+<!doctype html>
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8" ng-app="nutsApp" ng-controller="CommonController">
+<![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" ng-app="nutsApp" ng-controller="CommonController">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" ng-app="nutsApp" ng-controller="CommonController" manifest="/manifest.appcache">
+<!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="fragment" content="!">
+    <title ng-bind="global.currentTitle"></title>
+    <meta property="fb:app_id" content="{{appInfo.snsKey.fb}}" /> 
+    <meta property="og:url" content="{{appInfo.currentUrl}}"/>
+    <meta property="og:site_name" content="{{'TITLE' | translate}}"/>
+    <meta property="og:type" content="{{global.currentPageType !== 'hanasee' &&  global.currentPageType !== 'part' ? 'website' : 'article'}}"/>
+    <meta property="og:title" content="{{global.currentTitle}}"/>
+    <meta property="og:description" content="{{global.currentDescription ? global.currentDescription : global.currentTitle}}"/>
+    <meta property="og:image" content="{{global.currentImage}}"/>
+    <meta property="og:ttl" content="60"/>
+    
+    <meta name="description" content="{{global.currentDescription ? global.currentDescription : global.currentTitle}}">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="naver-site-verification" content="2d1506fbbdde8f7bb481eb794fc300767d01f032"/>
+    
+    <base href="/"><!--[if lte IE 6]></base><![endif]-->
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="images/touch-icon-iphone-60x60.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="images/touch-icon-ipad-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/touch-icon-iphone-retina-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="images/touch-icon-ipad-retina-152x152.png">
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <link rel="stylesheet" href="styles/font-awesome.css">
+    <link rel="stylesheet" href="styles/nanumbarungothic.css">
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/flag-icon.css">
+    <link rel="stylesheet" href="styles/landing.css">
+    <link rel="stylesheet" href="styles/nav.css">
+    <link rel="stylesheet" href="styles/alert.css">
+    <link rel="stylesheet" href="styles/aside.css">
+    <link rel="stylesheet" href="styles/channel.css">
+    <link rel="stylesheet" href="styles/grid-list.css">
+    
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/hanasees.css">
+    <link rel="stylesheet" href="styles/hanasee.css">
+    <link rel="stylesheet" href="styles/part.css">
+    <link rel="stylesheet" href="styles/help.css">
+    <link rel="stylesheet" href="styles/write.css">
+    <link rel="stylesheet" href="styles/activities.css">
+    <link rel="stylesheet" href="styles/comments.css">
+    <!-- endbuild -->
+    
+  </head>
+
+  <body ng-controller="UserCtrl"
+    class="ng-cloak"
+    ng-class="{'landingBody': global.currentPageType === '/'}">
+    <!-- !window.android && appInfo.browser.userAgent.search('window') > -1 -->
+    
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->    
+    
+    <div class="container" ng-if="global.currentPageType === '/'">
+       <!-- main section -->
+      <section class="ng-cloak main-section" ng-view></section>
+    </div>
+    <div class="container" 
+      ng-class="{'aside-left-on': global.sideMenuStatus==='open'}" 
+      ng-if="global.currentPageType !== '/'"
+      ng-swipe-left="sideMenu('close')" 
+      ng-swipe-right="sideMenu('open')">
+      <!-- navigation -->
+      <!-- for dev -->
+      <nav class="ng-cloak navbar navbar-hanasee" role="navigation" ng-include="'views/navbar.html'" ng-controller="NavCtrl"></nav>
+      <!-- -->
+      <div class="aside-left" ng-include="'views/aside-left.html'"></div>
+      <!-- /navigation -->
+      <div class="back-drop cursor-pointer" ng-class="{hide:global.sideMenuStatus==='close'}" ng-click="sideMenu('close')"></div>
+      
+      <!-- alert message -->
+      <!-- type=[success danger info]  -->
+      <alert class="ng-cloak" ng-if="global.alert" type="{{global.alert.type}}" close="closeAlert($event)">{{global.alert.msg}}</alert>
+      <!-- foundation alert
+      <div class="alert-box radius print-only"
+        ng-class="{
+          'print-only':!global.alert,
+          info: global.alert && global.alert.type==='info',
+          success: global.alert && global.alert.type==='success',
+          warning: global.alert && global.alert.type==='warning'
+        }" data-alert>
+        {{global.alert.msg}}
+        <a href="#" class="close" ng-click="closeAlert($event);">&times;</a>
+      </div>
+      -->
+      <!-- /alert message -->
+      
+      <!-- loading circle 
+      <section class="loading hide" ng-class="{hide:!global.mainLoadingFlag}">
+        <a ng-href="{{appInfo.currentPath}}" page-reload>
+          <i class="fa fa-circle-o-notch fa-spin fa-1x"></i>
+        </a>
+      </section>
+       /loading circle -->
+        
+      <!-- main section -->
+      <section class="ng-cloak main-section" ng-view></section>
+      
+    </div>
+    
+    <!-- application install ad -->
+    <div 
+      ng-if="!appInfo.currentBrowser.isInApp && appInfo.currentBrowser.isAndroid"
+      class="ng-cloak alert alert-info alert-dismissable text-left ad-app"
+      >
+      <button type="button pull-left" class="close" data-dismiss="alert" aria-hidden="true">
+        <i class="fa fa-times"></i>
+      </button>
+      
+      <button class="btn btn-success pull-right" ng-click="moveUrl('market://details?id=com.jumpingnuts.'+appInfo.appname)">
+        <i class="fa fa-mobile"></i>
+        {{'APP_AD.button.download' | translate}}
+      </button>
+      <p>
+        <b class="text-info">{{'APP_AD.label.hanaseeForAndroid' | translate}}</b><br />
+        {{'APP_AD.label.availableOnGooglePlay' | translate}}
+      </p>
+    </div>
+    <!-- /application install ad -->
+    
+    
+    <!-- event modal -->
+      <div ng-controller="NoticeCtrl">
+        <script type="text/ng-template" id="noticeModalContent.html">
+          <div class="modal-header">
+            <img ng-src="{{logoPath}}" />
+            <i>Beta</i>
+            <button ng-click="modalClose(false);"
+              class="transparent padding-0 margin-0 color-white close">
+              <i class="fa fa-times-circle-o fa-2x"></i>
+            </button>
+          </div>
+          <div class="modal-body" ng-bind-html="notice.content"></div>
+          <div class="modal-footer">
+            <button ng-click="modalClose(true);"
+              class="transparent padding-0 margin-0 color-white">
+              <small>
+                <i class="fa fa-times"></i> 다시 보지 않기
+              </small>
+            </button>
+          </div>
+        </script>
+      </div>
+      <!-- /event modal -->
+    
+  <div id="nativeCallback" ng-controller="NativeCtrl"></div>
+    
+
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+    
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/modernizr/modernizr.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-md5/angular-md5.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-cookie/angular-cookie.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-translate/angular-translate.js"></script>
+    <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/momentjs/moment.js"></script>
+    <script src="bower_components/json3/lib/json3.js"></script>
+    <!-- endbower -->
+    <script src="bower_components/momentjs/min/moment-with-langs.min.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    
+    <script src="scripts/services/constant.js"></script>
+    <script src="scripts/services/common.js"></script>
+    <script src="scripts/services/main.js"></script>
+    <script src="scripts/services/comment.js"></script>
+    <script src="scripts/services/user.js"></script>
+    <script src="scripts/services/native.js"></script>
+    
+    <script src="scripts/directives/directives.js"></script>
+    <script src="scripts/directives/imageupload.js"></script>
+    <script src="scripts/filters/filters.js"></script>
+    
+    <script src="scripts/controllers/user.js"></script>    
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/comment.js"></script>
+
+    <script src="scripts/lib/kakao.link.min.js"></script>
+    <!-- endbuild -->
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+      _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+      _gaq.push(['_setAccount', 'UA-44989281-5']);
+      window.google_analytics_uacct = "UA-44989281-5";
+      
+      (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; 
+      ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    
+    <!-- start Mixpanel -->
+    <script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f)}})(document,window.mixpanel||[]);mixpanel.init("ff66b982e88c005d3cc1f290b22d038c");</script>
+    <!-- end Mixpanel -->
+    
+    <!-- Facebook Conversion Code for track_join 
+    <script type="text/javascript">
+    var fb_param = {};
+    fb_param.pixel_id = '6019255386852';
+    fb_param.value = '0.00';
+    fb_param.currency = 'USD';
+    (function(){
+      var fpw = document.createElement('script');
+      fpw.async = true;
+      fpw.src = '//connect.facebook.net/en_US/fp.js';
+      var ref = document.getElementsByTagName('script')[0];
+      ref.parentNode.insertBefore(fpw, ref);
+    })();
+    </script>
+    <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6019255386852&amp;value=0&amp;currency=USD" /></noscript>
+    -->
+    
+    <!-- device brower test
+    weinre --boundHost 127.0.0.1 --httpPort 9090
+    <script src="http://172.20.2.55:9090/target/target-script-min.js"></script>
+    -->
+  </body>
+</html>

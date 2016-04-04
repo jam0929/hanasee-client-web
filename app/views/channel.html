@@ -1,0 +1,42 @@
+<div class="modal-header">
+  {{'CHANNEL_PAGE.title' | translate}}
+  <i class="fa fa-times fa-2x pull-right cursor-pointer" ng-click="modalClose();"></i>
+</div>
+<ul class="channel list-inline row">
+  <li ng-repeat="item in channel.list" class="col-xs-4 cursor-pointer" 
+    ng-init="channelCol=3; channelRow=4"
+    ng-class="{
+      'active': item.name===channel.value || (item.name==='all' && channel.value===''),
+      'top-left': $index===0,
+      'top-right': $index===channelCol-1,
+      'bottom-left': $index===(channel.list.length-1)%channelRow*channelCol,
+      'bottom-right': $index===(channel.list.length-1)%channelRow*channelCol+(channelCol-1),
+      'right': $index%channelCol===channelCol-1,
+      'bottom': $index >= (channel.list.length-1)%channelRow*channelCol
+      }"
+    ng-click="hanasees.search=null; selectChannel(item.name);">
+    <!-- if selected channel: class="active" -->
+    <p ng-switch on="item.name">
+      <i ng-switch-when="all"class="fa fa-globe"></i>
+      <i ng-switch-when="idol"class="fa fa-female"></i>
+      <i ng-switch-when="issue"class="fa fa-users"></i>
+      <i ng-switch-when="fanfic"class="fa fa-quote-right"></i>
+      <i ng-switch-when="humor" class="fa fa-smile-o"></i>
+      <i ng-switch-when="information" class="fa fa-info-circle"></i>
+      <i ng-switch-when="livestream" class="fa fa-video-camera"></i>
+      <i ng-switch-when="life" class="fa fa-child"></i>
+      <i ng-switch-when="love" class="fa fa-heart"></i>
+      <i ng-switch-when="emotion" class="fa fa-tint"></i>
+      <i ng-switch-when="horror" class="fa fa-bolt"></i>
+      <i ng-switch-when="etc" class="fa fa-ellipsis-h"></i>
+    </p>
+      {{'CHANNEL.'+item.name | translate}}
+      <!--({{item.count}})-->
+  </li>
+</ul>
+<!--
+<div class="modal-footer">
+  footer
+</div>
+-->
+

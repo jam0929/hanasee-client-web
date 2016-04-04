@@ -1,0 +1,77 @@
+<div class="setting-container" ng-class="{on: optionDetail.isOpen}">
+  <div class="first">
+    <h4 class="grid-list-title">
+      {{'SETTINGS_PAGE.group.country' | translate}}
+    </h4>
+    <ul class="list-unstyled grid-list">
+      <li class="cursor-pointer" ng-click="optionDetail.open('country');">
+        <span class="pull-right">
+          {{country.supportList[setting.activeCountry].name}}
+          <i class="fa fa-angle-right"></i>
+        </span>
+          
+        {{'SETTINGS_PAGE.label.activeCountry' | translate}}
+      </li>
+      <!--
+      <li class="cursor-pointer" ng-click="optionDetail.open('language');">
+        <span class="pull-right disabled">
+          {{language.supportList[setting.language].name}}
+          <i class="fa fa-angle-right"></i>
+        </span>
+          
+        {{'SETTINGS_PAGE.label.language' | translate}}
+      </li>
+      -->
+    </ul>
+    
+    <h4 class="grid-list-title">
+      {{'SETTINGS_PAGE.group.notification' | translate}}
+    </h4>
+    <ul class="list-unstyled grid-list">
+      <li class="cursor-pointer" ng-repeat="(key, item) in notiSettings.data">
+        <span class="pull-right">
+          <ul class="list-inline">
+            <li ng-if="item.mail!=='X'" ng-click="notiSettingSave(key+'_mail', item.mail);">
+              <i class="fa" ng-class="item.mail==='T' ? 'fa-envelope' : 'fa-envelope-o disabled'"></i>
+            </li>
+            <li ng-if="item.push!=='X'" ng-click="notiSettingSave(key+'_push', item.push);">
+              <i class="fa" ng-class="item.push==='T' ? 'fa-bell' : 'fa-bell-o disabled'"></i>
+            </li>
+            <li ng-if="item.social!=='X'" ng-click="notiSettingSave(key+'_social', item.social);">
+              <i class="fa" ng-class="item.social==='T' ? 'fa-external-link' : 'fa-external-link-square disabled'"></i>
+            </li>
+          </ul>
+        </span>
+        {{'SETTINGS_PAGE.label.'+key | translate}}
+        <!--댓글
+        내 하나시의 반응
+        내 하나시 조회
+        반응한 하나시 소식
+        반응한 하나시 구독
+        내 반응
+        내 하나시 변경
+        내 상태 변경-->
+    </ul>
+  </div>
+  
+  <div class="second" ng-if="optionDetail.target==='country'">
+    <h4 class="cursor-pointer grid-list-title" ng-click="optionDetail.close();">
+      {{'SETTINGS_PAGE.group.notification' | translate}}
+    </h4>
+    <ul class="list-unstyled grid-list">
+      <li ng-repeat="key in notSorted(country.supportList)"
+        class="cursor-pointer" ng-class="{active:key===setting.activeCountry}"
+        ng-click="setting.activeCountry=key;">
+        <span class="pull-right">
+          <i class="fa fa-check"></i>
+        </span>
+        {{country.supportList[key].name}}
+      </li>
+    </ul>
+  </div>
+  
+</div>
+
+<!-- adcode -->
+<div class="text-center" ng-include="'views/ad.html'"></div>
+<!-- /adcode -->

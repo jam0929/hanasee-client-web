@@ -1,0 +1,67 @@
+<div class="row">
+  <!--
+  <div class="small-offset-1 small-10 medium-offset-1 medium-10 large-offset-1 large-10 columns">
+  -->
+  <div class="small-offset-1 small-10 medium-offset-0 medium-12 large-offset-0 large-12 columns">
+    <form ng-submit="signinAction();">
+      <fieldset class="medium-5 large-5 columns">
+        <legend>{{'LOGIN_PAGE.title' | translate}}</legend>
+        
+        <input type="email" name="email" ng-model="userInfo.email" placeholder="{{'SIGNUP_PAGE.placeholder.email' | translate}}" required="true" lowercase>
+        <!--<small class="error">Invalid entry</small>-->
+    
+        <input type="password" name="password" ng-model="userInfo.password" placeholder="{{'SIGNUP_PAGE.placeholder.password' | translate}}" required="true">
+        
+        <button type="submit" class="button success radius small-12 medium-12 large-12">{{'LOGIN_PAGE.title' | translate}}</button>
+        <!--
+        <a href="/signup">
+          <button type="button" class="button radius small-12 medium-12 large-12">
+            {{'SIGNUP_PAGE.title' | translate}}
+          </button>
+        </a>
+        -->
+      </fieldset>
+    </form>
+      
+    <h1 class="medium-2 large-2 columns text-center">OR</h1>
+      
+    <form ng-controller="SignupCtrl" ng-submit="signupAction();">
+      <fieldset class="medium-5 large-5 columns">
+        <legend>{{'SIGNUP_PAGE.title' | translate}}</legend>
+        
+          <input type="email" name="email" ng-model="signup.email" placeholder="{{'SIGNUP_PAGE.placeholder.email' | translate}} *" required="true" maxlength="50" lowercase>
+        
+          <input type="password" name="password" ng-model="signup.password" placeholder="{{'SIGNUP_PAGE.placeholder.password' | translate}} *" required="true">
+        
+          <input type="text" name="nickname" ng-model="signup.nickname" placeholder="{{'SIGNUP_PAGE.placeholder.nickname' | translate}} *" required="true" maxlength="20">
+        
+        <!--
+        <label>
+          {{'SIGNUP_PAGE.placeholder.passwordCheck' | translate}} *
+          <input type="password" name="passwordChk" ng-model="signup.passwordChk" placeholder="{{'SIGNUP_PAGE.placeholder.passwordCheck' | translate}}" required="true">
+        </label>
+        <label>
+          {{'SIGNUP_PAGE.label.age' | translate}}
+          <select name="age" ng-model="signup.age" class="form-control">
+            <option value="">{{'COMMON.notSelect' | translate}}</option>
+            <option value="10">{{'SIGNUP_PAGE.ageUnit.under' | translate:'{age:10}'}}</option>
+            <option value="20">{{'SIGNUP_PAGE.ageUnit.default' | translate:'{age:20}'}}</option>
+            <option value="30">{{'SIGNUP_PAGE.ageUnit.default' | translate:'{age:30}'}}</option>
+            <option value="40">{{'SIGNUP_PAGE.ageUnit.default' | translate:'{age:40}'}}</option>
+            <option value="50">{{'SIGNUP_PAGE.ageUnit.default' | translate:'{age:50}'}}</option>
+            <option value="60">{{'SIGNUP_PAGE.ageUnit.over' | translate:'{age:60}'}}</option>
+          </select>
+        </label>
+        
+        <label>{{'SIGNUP_PAGE.label.gender' | translate}}</label>
+          <input type="radio" name="gender" id="sex-gender-male" ng-model="signup.gender" value="male"/> 
+          <label for="sex-gender-male">{{'SIGNUP_PAGE.gender.male' | translate}}</label>
+          <input type="radio" name="gender" id="sex-gender-female" ng-model="signup.gender" value="female"/>
+          <label for="sex-gender-female">{{'SIGNUP_PAGE.gender.female' | translate}}
+        </label>
+        -->
+          <button type="submit" class="button success radius small-12 medium-12 large-12">{{'SIGNUP_PAGE.title' | translate}}</button>
+        </fieldset>
+    </form>
+  </div>
+</div>

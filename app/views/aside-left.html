@@ -1,0 +1,48 @@
+<div class="input-group">
+  <span class="input-group-addon" ng-click="moveHanasees();">
+    <i class="fa fa-search"></i>
+  </span>
+  <input ng-model="hanasees.search" type="text" class="form-control" placeholder="Search" ng-enter="channel.set('all'); moveHanasees();">
+</div>
+
+<p ng-if="userInfo.nickname" class="username cursor-pointer"
+  ng-click="move('/dashboard');">
+  {{'COMMON.user' | translate : '{"nickname": "'+userInfo.nickname+'"}'}}
+</p>
+<p ng-if="userInfo.email" class="email">{{userInfo.email}}</p>
+<hr />
+<ul class="list-unstyled">
+  <li class="cursor-pointer" ng-click="move('/main');">
+      <i class="fa fa-home fa-fw"></i> {{'NAV_PAGE.menu.main' | translate}}
+  </li>
+  <li ng-if="userInfo.isSignin" class="cursor-pointer" ng-click="move('/dashboard');">
+<!--    <span class="badge pull-right">2</span>-->
+    <i class="fa fa-dashboard fa-fw"></i> {{'NAV_PAGE.menu.dashboard' | translate}}
+  </li>
+  <li ng-if="userInfo.isSignin" class="cursor-pointer" ng-click="move('/write');">
+<!--    <span class="badge pull-right">2</span>-->
+    <i class="fa fa-pencil fa-fw"></i> {{'NAV_PAGE.menu.write' | translate}}
+  </li>
+  <li class="cursor-pointer" ng-click="move('/help/notice');">
+<!--    <span class="badge pull-right">2</span>-->
+    <i class="fa fa-bullhorn fa-fw"></i> {{'NAV_PAGE.menu.notice' | translate}}
+  </li>
+  <li ng-if="userInfo.isSignin" class="cursor-pointer" ng-click="move('/settings');">
+    <i class="fa fa-gear fa-fw"></i> {{'NAV_PAGE.menu.settings' | translate}}
+  </li>
+  <li class="cursor-pointer" ng-click="move('/help/faq');">
+    <i class="fa fa-question-circle fa-fw"></i> {{'NAV_PAGE.menu.help' | translate}}
+  </li>
+  <li class="cursor-pointer" ng-if="userInfo.isSignin">
+    <a href="/" ng-click="signout();">
+      <i class="fa fa-sign-out fa-fw"></i>
+      {{'NAV_PAGE.menu.signout' | translate}}
+    </a>
+  </li>
+  <li class="cursor-pointer" ng-if="!userInfo.isSignin" ng-click="moveSign('signin');">
+    <i class="fa fa-sign-in fa-fw"></i>
+    {{'NAV_PAGE.menu.signin' | translate}}
+  </li>
+</ul>
+
+<footer ng-include="'views/footer.html'"></footer>

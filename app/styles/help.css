@@ -1,0 +1,53 @@
+ul.grid-list.help > li {
+  font-size: 1.2em;
+}
+ul.grid-list.help small {
+  color: #c62f2f;
+}
+
+ul.grid-list.help > li > div.content {
+  height: 0px;
+  overflow: hidden;
+  font-size: 1em;
+  
+  transition: all .2s ease;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -o-transition: all .2s ease;
+}
+ul.grid-list.help > li.active {
+  padding-bottom:0;
+}
+ul.grid-list.help > li.active > div.content {
+  margin-top: .5em;
+  border-top: 1px solid #d1d1d1;
+  background-color: #d1d1d1;
+  height: auto;
+}
+ul.grid-list.help > li.active.make-question > div.content {
+  margin-top: .5em;
+  font-size: .8em;
+  border-top: 1px solid #d1d1d1;
+  background-color: transparent;
+  height: auto;
+}
+
+
+ul.grid-list.help > li > div.content > div.question,
+ul.grid-list.help > li > div.content > div.answer  {
+  color: #c62f2f;
+  font-size: .8em;
+}
+ul.grid-list.help > li > div.content > div.answer {
+  margin-top: 1em;
+}
+
+ul.category > li {
+  font-size: 1em;
+  padding: 1em;
+  border-right: 1px solid #d1d1d1;
+  border-bottom: 1px solid #d1d1d1;
+}
+ul.category > li.active {
+  background-color: #d1d1d1;
+}

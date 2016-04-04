@@ -1,0 +1,229 @@
+<div class="setting-container" ng-class="{on: optionDetail.isOpen}">
+  <div class="first">
+  <form ng-controller="HanaseeCtrl" role="form" ng-submit="hanaseeSave();" class="write-form">
+    <!-- <legend>{{'WRITE_PAGE.title' | translate}}</legend> -->
+    <div class="form-group">
+      <label>{{'WRITE_PAGE.label.title' | translate}}</label>
+      <input type="text" class="form-control" focus="500"
+        placeholder="{{'WRITE_PAGE.label.title' | translate}}" 
+        ng-model="write.title" required="true">
+    </div>
+    
+    <div class="form-group">
+      <label>{{'WRITE_PAGE.label.description' | translate}}</label>
+      <textarea class="form-control" rows="8" 
+        placeholder="{{'WRITE_PAGE.label.description' | translate}}" 
+        ng-model="write.description" required="true">
+      </textarea>
+    </div>
+    
+    <div class="form-group">
+      <label>
+        {{'WRITE_PAGE.label.images' | translate}}
+        <small>{{'WRITE_PAGE.desc.images' | translate:'{cnt:'+(writeTmp.imageCnt||0)+'}'}}</small>
+      </label>
+      
+      <div class="row previews">
+        <!-- uploaded image -->
+        <div class="col-xs-3 text-center cursor-pointer" ng-if="write.update.images.length>0 && img" 
+          ng-repeat="img in write.update.images track by $index"
+          ng-click="updateImageRemove($index);">
+          <div style="background-image: url('{{write.update.images[$index]}}');">
+            <i class="fa fa-times fa-2x"></i>
+          </div>
+        </div>
+      <!-- uploaded image -->
+      
+      <!-- upload image -->
+        <div  class="col-xs-3 text-center cursor-pointer" ng-if="img.file" 
+          ng-repeat="img in writeTmp.images track by $index"
+          ng-click="imageRemove($index);">
+          <div style="background-image: url('{{img.url | trustedResource}}');">
+            <i class="fa fa-times fa-2x"></i>
+          </div>
+        </div>
+      <!-- /upload image -->
+      </div>
+      
+      
+      <div class="hide">
+        <input multiple
+          class="hide"
+          id="file_input"
+          type="file"
+          accept="image/*"
+          image="writeTmp.imageTmp"
+          upload-limit="writeTmp.imageCnt"
+          loading-flag="writeTmp.loadingFlag"
+          change-callback="imageAdd"
+        />
+      </div>
+      <!--
+        ng-class="{hide: $index>0 && !writeTmp.imgOpenList[$index]}"
+        ng-click="imageRemove($index);"
+      -->
+      <button ng-if="writeTmp.nowImageCnt < writeTmp.imageCnt" type="button" class="btn btn-block" ng-click="imageTrigger();">
+        {{'WRITE_PAGE.button.imageUpload' | translate}}
+      </button>
+    </div>
+    
+    <div class="form-group">
+      <label>{{'WRITE_PAGE.label.tags' | translate}}</label>
+      <input type="text" ng-model="writeTmp.tags" class="form-control"
+          placeholder="{{'WRITE_PAGE.placeholder.tags' | translate}}" required="true" />
+    </div>
+    
+    <!-- tags -->
+    <ul class="tags list-inline">
+      <li  ng-repeat="tag in write.tags">
+        {{tag}}
+      </li>
+    </ul>
+    <!-- /tags -->
+    
+
+    
+  <!--
+      <label>
+        {{'WRITE_PAGE.label.country' | translate}}
+        <select ng-model="write.country" ng-init="write.country = write.country ? write.country : 'kr'">
+          <option ng-repeat="(key, val) in country.supportList" ng-selected="write.country===key" value="{{key}}">
+            {{val.name}}
+          </option>
+        </select>
+      </label>
+      
+      <label>
+        {{'WRITE_PAGE.label.channel' | translate}}
+        <select ng-model="write.channel">
+          <option ng-repeat="item in channel.list" ng-selected="write.channel===item.name" value="{{item.name}}">
+            {{'CHANNEL.'+item.name | translate}}
+          </option>
+        </select>
+      </label>
+      
+      <label>
+        <input type="checkbox" ng-model="writeTmp.options.requireLike"/>
+        {{'WRITE_PAGE.label.requireLike' | translate}}
+      </label>
+      
+      <label>
+        <input type="checkbox" ng-model="writeTmp.isPassword" ng-change="write.password=''"/>
+        {{'WRITE_PAGE.label.password' | translate}}
+      </label>
+      
+      <label>
+        <input type="password" ng-if="writeTmp.isPassword" ng-model="write.password" maxlength="10"
+          placeholder="{{'WRITE_PAGE.placeholder.password' | translate}}" required="true" />
+      </label>
+    <div class="form-group">
+      <label>
+        <input type="checkbox" >
+        Due start
+      </label>
+      <input type="text" ng-model="write.title" name="title" placeholder="2014-04-04 12:12:12" class="form-control" required="true">
+    </div>
+    
+    <div class="form-group">
+      <label>
+        <input type="checkbox" >
+        Disable review
+      </label>
+    </div>
+  -->
+    <h4 class="grid-list-title">
+        {{'WRITE_PAGE.label.options' | translate}}
+    </h4>
+    <ul class="list-unstyled grid-list">
+      <li class="cursor-pointer" ng-click="optionDetail.open('channel');">
+        <span class="pull-right disabled">
+          {{'CHANNEL.'+write.channel | translate}}
+          <i class="fa fa-angle-right"></i>
+        </span>
+        {{'WRITE_PAGE.label.channel' | translate}}
+      </li>
+      <li>
+        <span class="pull-right cursor-pointer"
+          ng-class="{'switch-on':writeTmp.options.requireLike, 'switch-off':!writeTmp.options.requireLike}"
+          ng-swipe-left = 'eventStop($event); writeTmp.options.requireLike=false'
+          ng-swipe-right = 'eventStop($event); writeTmp.options.requireLike=true'
+          ng-click="eventStop($event); writeTmp.options.requireLike = !writeTmp.options.requireLike">
+          <div class="has-switch">
+            <div class="switch-container">
+              <div class="switch-left">&nbsp;</div>
+              <div class="switch-right">&nbsp;</div>
+            </div>
+          </div>
+        </span>
+        {{'WRITE_PAGE.label.requireLike' | translate}}
+      </li>
+      <li>
+        <span class="pull-right cursor-pointer"
+          ng-class="{'switch-on':writeTmp.isPassword, 'switch-off':!isPassword}"
+          ng-swipe-left = 'eventStop($event); writeTmp.isPassword=false'
+          ng-swipe-right = 'eventStop($event); writeTmp.isPassword=true'
+          ng-click="eventStop($event); writeTmp.isPassword = !writeTmp.isPassword; write.password=''; writeTmp.password='';">
+          <div class="has-switch">
+            <div class="switch-container">
+              <div class="switch-left">&nbsp;</div>
+              <div class="switch-right">&nbsp;</div>
+            </div>
+          </div>
+        </span>
+        {{'WRITE_PAGE.label.password' | translate}}
+      </li>
+      <li ng-if="writeTmp.isPassword" class="cursor-pointer" ng-click="optionDetail.open('password');">
+        <span ng-if="!write.password" class="pull-right disabled">
+          {{'COMMON.label.notSetted' | translate}}
+          <i class="fa fa-angle-right"></i>
+        </span>
+        <span ng-if="write.password" class="pull-right disabled">
+          {{'COMMON.label.setted' | translate}}
+          <i class="fa fa-angle-right"></i>
+        </span>  
+        {{'COMMON.label.password' | translate}}
+      </li>
+    </ul>
+    
+    <div class="form-group">
+      <button class="btn btn-block submit" ng-if="isHanaseeSave">
+        <i class="fa fa-refresh fa-2x fa-spin"></i>
+      </button>
+      
+      <button type="submit" class="btn btn-block submit" ng-if="!isHanaseeSave">
+        {{'WRITE_PAGE.button.submit' | translate}}
+      </button>
+    </div>
+  </form>
+  <!-- /form2 -->
+  </div>
+  
+  <div class="second" ng-if="optionDetail.target==='channel'">
+    <h4 class="grid-list-title" ng-click="optionDetail.close();">
+      {{'WRITE_PAGE.label.channel' | translate}}
+    </h4>
+    <ul class="cursor-pointer list-unstyled grid-list" ng-init="writeTmp.channel = write.channel;">
+      <li ng-repeat="item in channel.list" 
+        class="cursor-pointer" ng-class="{active:item.name===writeTmp.channel}"
+        ng-click="writeTmp.channel=item.name;"
+      >
+        <span class="pull-right">
+          <i class="fa fa-check"></i>
+        </span>
+        {{'CHANNEL.'+item.name | translate}}
+      </li>
+    </ul>
+  </div>
+  <div class="second" ng-if="optionDetail.target==='password'">
+    <h4 class="grid-list-title" ng-click="optionDetail.close();">
+      {{'COMMON.label.password' | translate}}
+    </h4>
+    <ul class=" list-unstyled grid-list" ng-init="writeTmp.password = write.password;">
+      <li>
+        <input type="password" class="cursor-pointer" focus="500"
+          ng-if="writeTmp.isPassword" ng-model="writeTmp.password" maxlength="12"
+          placeholder="{{'WRITE_PAGE.placeholder.password' | translate}}" required="true" />
+      </li>
+    </ul>
+  </div>
+</div>

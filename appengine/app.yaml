@@ -1,0 +1,40 @@
+application: jmpnuts
+module: hanasee-client-web
+version: 1-0-9
+runtime: python27
+api_version: 1
+threadsafe: true
+instance_class: F2
+automatic_scaling:
+  min_idle_instances: 1
+  max_idle_instances: 5  # default value
+  min_pending_latency: automatic  # default value
+  max_pending_latency: 5s
+  #max_concurrent_requests: 80
+#default_expiration: "1h"
+
+handlers:
+- url: /(robots\.txt|favicon\.ico)
+  static_files: dist/\1
+  upload: dist/(robots\.txt|favicon\.ico)
+
+- url: /(manifest\.appcache)
+  static_files: dist/\1
+  mime_type: text/cache-manifest
+  upload: dist/(manifest\.appcache)
+  
+- url: /fonts
+  static_dir: dist/fonts
+- url: /images
+  static_dir: dist/images
+- url: /languages
+  static_dir: dist/languages
+- url: /scripts
+  static_dir: dist/scripts
+- url: /styles
+  static_dir: dist/styles
+- url: /views
+  static_dir: dist/views
+  
+- url: .*
+  script: main.application

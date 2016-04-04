@@ -1,0 +1,118 @@
+<!-- tabs -->
+<ul ng-if="hanasees.listType === 'basic'" class="subnav hanasees row">
+  <li ng-repeat="status in hanaseeFilter.status" class="cursor-pointer" ng-class="{active:hanasees.status===status}"  ng-click="optionChange(status);">
+    <i  ng-if="!global.navFlag" class="fa" ng-class="{'fa-pause':status == 'ready', 'fa-spotify':status == 'onair', 'fa-comments-o':status == 'completed' }"></i>
+    {{'HANASEES_PAGE.nav.'+status | translate}}
+  </li>
+  <li class="order dropdown cursor-pointer">
+    <div class="dropdown-toggle">
+      <i class="fa" 
+        ng-class="{
+          'fa-long-arrow-up':hanasees.order == '-new'||hanasees.order == '-best'||hanasees.order == '-trends',
+          'fa-long-arrow-down':hanasees.order == 'new'||hanasees.order == 'best'||hanasees.order == 'trends'
+        }">
+      </i>
+      <i class="fa" 
+        ng-class="{
+          'fa-clock-o':hanasees.order == 'new'||hanasees.order == '-new',
+          'fa-eye':hanasees.order == 'best'||hanasees.order == '-best',
+          'fa-user':hanasees.order == 'trends'||hanasees.order == '-trends'
+        }">
+      </i>
+      <!--{{'HANASEES_PAGE.order.'+hanasees.order | translate}}-->
+    </div>
+    <ul class="dropdown-menu">
+      <li ng-repeat="order in hanaseeFilter.order[hanasees.status]">
+        <a ng-click="optionChange(hanasees.status, order);" ng-class="{active:hanasees.order==order}">
+          <i class="fa fa-long-arrow-down"></i>
+          <i class="fa" ng-class="{ 'fa-clock-o':order == 'new', 'fa-eye':order == 'best', 'fa-user':order == 'trends'  }"></i>
+          {{'HANASEES_PAGE.order.'+order | translate}}
+        </a>
+        <a ng-click="optionChange(hanasees.status, '-'+order);" ng-class="{active:hanasees.order=='-'+order}">
+          <i class="fa fa-long-arrow-up"></i>
+          <i class="fa" ng-class="{ 'fa-clock-o':order == 'new', 'fa-eye':order == 'best', 'fa-user':order == 'trends'  }"></i>
+          {{'HANASEES_PAGE.order.'+order | translate}}
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
+<!-- /tabs -->
+
+
+<!-- infobar ->
+<span ng-if="hanasees.listType === 'basic' && hanasees.search">{{'HANASEES_PAGE.label.search' | translate:'{search: hanasees.search}'}}</span>
+<span ng-if="hanasees.listType === 'basic'">{{'HANASEES_PAGE.label.count' | translate:'{count: hanasees.count}'}}</span>
+<span ng-if="hanasees.listType === 'basic'" class="pull-right">
+  {{'HANASEES_PAGE.label.country' | translate}} <span class="flag-icon kr" ng-class="'flag-icon-'+country.selected"></span>
+</span>
+<span ng-if="hanasees.listType">{{hanasees.listType}}</span>
+<!- /infobar -->
+
+<div class="infobar text-center" ng-if="hanasees.listType === 'basic'">
+  <span ng-if="hanasees.search">{{'HANASEES_PAGE.label.search' | translate:'{search: hanasees.search}'}}</span>
+  {{'HANASEES_PAGE.label.result' | translate:'{count: hanasees.count, country: country.getList().name}'}}
+</div>
+
+<!-- adcode -->
+<div class="text-center" ng-include="'views/ad.html'"></div>
+<!-- /adcode -->
+
+<div class="columns" scrollevent="hansiesScrollEvent()" scrollhandler="hansiesScrollHandler()">
+  <div ng-if="hanasee.title" 
+    ng-repeat="hanasee in hanasees.data" id="{{hanasee.Author.uid}}_{{hanasee.sid}}" 
+    class="media item cursor-pointer {{hanasee.status}}">
+    <div class="pull-left text-center cursor-pointer"
+      ng-click="move('/dashboard/'+hanasee.Author.uid)">
+      <img ng-if="!hanasee.Author.picture" src="http://placehold.it/64x64/d1d1d1/&text=N/A" class="media-object img-circle" />
+      <img ng-if="hanasee.Author.picture" ng-src="{{hanasee.Author.picture}}" class="media-object img-circle" />
+      <small ng-switch on="hanasee.status">
+        <span ng-switch-when="ready" class="label label-primary">{{'HANASEES_PAGE.status.ready' | translate}}</span>
+        <span ng-switch-when="paused" class="label label-default">{{'HANASEES_PAGE.status.paused' | translate}}</span>
+        <span ng-switch-when="onair" class="label label-danger">{{'HANASEES_PAGE.status.onair' | translate}}</span>
+        <span ng-switch-when="afk" class="label label-info">{{'HANASEES_PAGE.status.afk' | translate}}</span>
+        <span ng-switch-when="completed" class="label label-success">{{'HANASEES_PAGE.status.completed' | translate}}</span>
+      </small>
+    </div>
+    <div class="media-body cursor-pointer"
+      ng-click="move('/hanasee/'+hanasee.Author.uid+'/'+hanasee.sid)">
+      <h4 class="media-heading">
+        {{hanasee.title}}
+      </h4>
+      <p>
+        {{hanasee.description && hanasee.description !== 'undefined' ? hanasee.description : hanasee.title}}
+      </p>
+      <ul class="list-inline">
+        <li>{{hanasee.nickname}}</li>
+        <li ng-if="hanasees.status!=='completed'">{{hanasee.updated | timeago}}</li>
+        <li ng-if="hanasees.status==='completed'">{{hanasee.updated | date:'yyyy-MM-dd'}}</li>
+        
+        <li ng-switch on="hanasees.order">
+            <span ng-switch-when="new" ng-if="hanasees.status!=='completed'" class="right">
+              <!-- <i class="fa fa-clock-o"></i> {{hanasee.updated | timeago}} -->
+              {{'HANASEE.label.viewCount'|translate:'{cnt:"'+(hanasee.viewCount | number:0)+'"}'}}
+            </span>
+            <span ng-switch-when="new" ng-if="hanasees.status==='completed'" class="right">
+              <!-- {{hanasee.updated | date:'yyyy-MM-dd'}} -->
+              {{'HANASEE.label.totalViewCount'|translate:'{cnt:"'+(hanasee.totalViewCount | number:0)+'"}'}}
+            </span>
+            <span ng-switch-when="best" class="right">
+              <!-- <i class="fa fa-eye"></i> {{hanasee.totalViewCount | number:0}} -->
+              {{'HANASEE.label.totalViewCount'|translate:'{cnt:"'+(hanasee.totalViewCount | number:0)+'"}'}}
+            </span>
+            <span ng-switch-when="trends" class="right">
+              <!-- <i class="fa fa-user"></i> {{hanasee.viewCount | number:0}} -->
+              {{'HANASEE.label.viewCount'|translate:'{cnt:"'+(hanasee.viewCount | number:0)+'"}'}}
+            </span>
+        </li>
+      </ul>
+      <div class="thumbnails"
+        ng-class="{'col1': hanasee.thumbnails.length === 1, 'col2': hanasee.thumbnails.length === 2, 'col3': hanasee.thumbnails.length === 3 }"
+        ng-repeat="thumbnail in hanasee.thumbnails" 
+        style="background-image: url('{{thumbnail}}');">
+      </div>
+    </div>
+  </div>
+</div>
+
+

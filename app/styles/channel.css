@@ -1,0 +1,41 @@
+ul.channel {
+  font-size: 1.2em;
+  text-align: center;
+}
+ul.channel.row {
+  margin: 0;
+}
+
+ul.channel > li {
+  color: #c62f2f;
+  padding: .7em .3em;
+  border-right: 1px solid #d1d1d1;
+  border-bottom: 1px solid #d1d1d1;
+  text-overflow:ellipsis; white-space: nowrap; overflow: hidden;
+}
+ul.channel > li > p {
+  margin: 0;
+  font-size: 2em;
+}
+ul.channel > li.active {
+  color: white;
+  background-color: #c62f2f;
+}
+ul.channel > .right {
+  border-right: 0px;
+}
+ul.channel > .bottom {
+  border-bottom: 0px;
+}
+ul.channel > .top-left {
+  /*border-top-left-radius: 5px;*/
+}
+ul.channel > .top-right {
+  /*border-top-right-radius: 5px;*/
+}
+ul.channel > .bottom-left {
+  border-bottom-left-radius: 5px;
+}
+ul.channel > .bottom-right {
+  border-bottom-right-radius: 5px;
+}

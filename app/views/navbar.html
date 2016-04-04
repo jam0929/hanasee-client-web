@@ -1,0 +1,81 @@
+<ul class="list-inline">
+  <li ng-if="!optionDetail.isOpen" class="cursor-pointer logo" ng-click="sideMenu('toggle');"></li>
+  <li ng-if="optionDetail.isOpen" class="cursor-pointer" ng-click="optionDetail.close();">
+    <i class="fa fa-chevron-left"></i>
+  </li>
+  
+  <li class="text cursor-pointer" 
+  ng-class="{'detail':optionDetail.isOpen}" 
+  ng-if="global.currentPageType!=='hanasees' && global.currentPageType!=='hanasee'">
+    {{'NAV_PAGE.menu.'+global.currentPageType | translate}}
+  </li>
+  <li class="text cursor-pointer" ng-class="{'detail':optionDetail.isOpen}"
+    ng-if="global.currentPageType==='hanasees' || global.currentPageType==='hanasee'"
+    ng-click="hanasees.search=null; moveHanasees($event);">{{'CHANNEL.'+channel.value | translate}}
+  </li>
+  
+  <li class="loading cursor-pointer hide" ng-class="{hide:!global.mainLoadingFlag}" ng-click="move(appInfo.currentPath);" page-reload>
+    <i class="fa fa-circle-o-notch fa-spin"></i>
+  </li>
+  
+  <li ng-if="!optionDetail.isOpen" class="pull-right cursor-pointer margin-top-0" ng-click="channelModalOpen();">
+    <!-- <i class="fa fa-th"></i> -->
+    <span class="glyphicon glyphicon-th"></span>
+  </li>
+  <li ng-if="!optionDetail.isOpen && userInfo.isSignin" class="pull-right cursor-pointer" ng-click="move('/write')">
+    <i class="fa fa-pencil"></i>
+  </li>
+  <li ng-if="!optionDetail.isOpen && userInfo.isSignin" class="pull-right cursor-pointer" ng-click="activitiesModalOpen();">
+    <i class="fa fa-bell" ng-style="{'margin-right': global.notificationUnchecked ? '-.6em' : 0}"></i>
+    
+    <span ng-if="global.notificationUnchecked > 0" class="badge" style="background-color:#FFF; color:#c62f2f; font-size:.35em; border: 2px solid #c62f2f; 
+    margin-right:.1em;">
+      {{global.notificationUnchecked}}
+    </span>
+  </li>
+  
+  <li ng-if="optionDetail.isOpen" class="pull-right cursor-pointer" ng-click="optionDetail.save();">
+      <i class="fa fa-check"></i>
+  </li>
+</ul>
+<!--
+<ul ng-if="optionDetail.isOpen" style="display:inline-block" class="cursor-pointer list-inline" ng-click="optionDetail.close();">
+  <li>
+    <i class="fa fa-chevron-left"></i>
+  </li>
+</ul>
+<span ng-if="global.currentPageType==='hanasees' || global.currentPageType==='hanasee'" 
+  class="cursor-pointer" ng-click="hanasees.search=null; moveHanasees($event);">&nbsp;{{'CHANNEL.'+channel.value | translate}}</span>
+<span ng-if="global.currentPageType!=='hanasees' && global.currentPageType!=='hanasee'">&nbsp;{{'NAV_PAGE.menu.'+global.currentPageType | translate}}</span>
+
+<!-- loading circle ->
+<a ng-href="{{appInfo.currentPath}}" page-reload class="loading cursor-pointer hide" ng-class="{hide:!global.mainLoadingFlag}">
+  <i class="fa fa-circle-o-notch fa-spin"></i>
+</a>
+<!-- /loading circle --
+
+<ul ng-if="!optionDetail.isOpen" class="list-inline pull-right nav-items">
+  <li class="cursor-pointer" ng-click="activitiesModalOpen();">
+    <i class="fa fa-bell" ng-style="{'margin-right': global.notificationUnchecked ? '-.6em' : 0}"></i>
+    
+    <span ng-if="global.notificationUnchecked > 0" class="badge" style="background-color:#FFF; color:#c62f2f; font-size:.35em; border: 2px solid #c62f2f; 
+    margin-right:.1em;">
+      {{global.notificationUnchecked}}
+    </span>
+  </li>
+  <li class="cursor-pointer" ng-click="move('/write')">
+    <i class="fa fa-pencil"></i>
+  </li>
+  <li class="cursor-pointer" ng-click="channelModalOpen();">
+    <!-- <i class="fa fa-th"></i> --
+    <span class="glyphicon glyphicon-th"></span>
+  </li>
+</ul>
+
+<ul ng-if="optionDetail.isOpen" class="list-inline pull-right">
+  <li ng-if="optionDetail.isOpen" class="pull-right cursor-pointer" ng-click="optionDetail.save();">
+      <i class="fa fa-check"></i>
+  </li>
+</ul>
+-->
+
